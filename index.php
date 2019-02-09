@@ -83,6 +83,7 @@ a:active {
 	font-weight: bold;
 }
 
+	  
 .headerBlueL {
 	font-family: "Wii NTLG PGothic JPN Regular";
 	font-size: 20px;
