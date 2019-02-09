@@ -1,0 +1,941 @@
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- Flush buffer before setting locale to ensure encoding is preserved --><head>
+  <!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="../Wii/favicon.ico"> 
+<link href="../Wii/oss.css" rel="stylesheet" type="text/css">
+<link href="../Wii/error.css" rel="stylesheet" type="text/css">
+<script type="text/JavaScript">
+<!--
+	var ecCheck = false;
+	var errorCheck = false;
+	var buttonsCheck = false;
+	var imagesCheck = false;
+	var soundCheck = false;
+	var shopCheck = false;
+	var ossCheck = false;
+//-->
+</script>
+
+<script language="JavaScript" src="../Wii/ec.js"></script>
+<script language="JavaScript" src="../Wii/error.js"></script>
+<script language="JavaScript" src="../Wii/buttons.js"></script>
+<script language="JavaScript" src="../Wii/images.js"></script>
+<script language="JavaScript" src="../Wii/sound.js"></script>
+<script language="JavaScript" src="../Wii/shop.js"></script>
+<script language="JavaScript" src="../Wii/oss.js"></script>
+
+<script type="text/JavaScript">
+<!--
+var testMode = 'false';
+
+function getMethod()
+{
+	return 'GET';	
+}
+
+function getPostParams()
+{
+    var params = "";    
+   
+   return params;
+}
+
+function isConnectingPage()
+{
+    var isConnecting = '';
+    return (isConnecting == 'true');
+}
+
+function initPageCommon()
+{
+	var isShoppingManualEnabled = "true";
+    	if (ecSupportsSession()) {
+        	isShoppingManualEnabled = ec.getSessionValue("isShopManEnabled");
+    	}
+    
+    	if (isShoppingManualEnabled != "true") {
+    		hideElement("tophelpshadow");
+	    	hideElement("help");
+    	}
+    	
+	var ecsUrl = null;
+	var iasUrl = null;
+	var ccsUrl = null;
+	var ucsUrl = null;
+	var currBalance = null;
+
+    // js file loading check
+	var shopErrCheck = new wiiShop();
+	if (shopErrCheck != null && "error" in shopErrCheck) {
+		// shopErrCheck.error(209620, 1);
+		if (!ecCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!errorCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!buttonsCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!imagesCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!soundCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!shopCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!ossCheck) {
+			shopErrCheck.error(209620, 1);
+		}
+	}
+
+	init();
+	
+	// Cancel any ongoing async ops
+	ec.cancelOperation();
+	
+	
+
+	ec.setWebSvcUrls(ecsUrl, iasUrl);
+	ec.setContentUrls (ccsUrl, ucsUrl);
+	
+	
+	
+
+	ecTimeout = new ECTimeout(parseInt("60000"));
+	
+	
+	currBalance = document.getElementById("currentBalance");
+	if(currBalance) {
+		currBalance.innerHTML = getBalance();
+	}		
+	
+	setLogUrl("Log.jsp");
+
+    if(shop.isCompatibleMode)
+    {
+        setEulaUrl("L_01.jsp");
+    }
+    else
+    {
+        setEulaUrl("L_03_UA_1.jsp");
+    }
+
+	
+	MM_preloadImages('../Wii/under_banner_a.gif');
+	var supportsCreditCard = 'false';
+	if (ecSupportsSession()) {
+        	ec.setSessionValue("supportsCreditCard", supportsCreditCard);
+    	}
+
+    updateHistory();
+	var isConnecting = isConnectingPage();
+    setConnectingToServer(isConnecting);
+    
+    if (isHRPDisablePage()) {
+	   	wiiDisableHRP();
+	} else {
+	   	wiiEnableHRP();
+	}
+}
+
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+
+
+// Takes a progress object and returns the OSS error message to be displayed to the user
+function getOssErrorMsg(progress)
+{
+	if (progress.status >= 0) { return ""; }
+	
+    var status = progress.status;
+    var errCode = progress.errCode;
+    var errInfo = progress.errInfo;
+
+    var msg;	
+
+	var a = new Array();	
+	// EC lib Errors
+	//a[-(EC_ERROR_CANCELED)] = "???OSS_ERROR_NETWORK_TIMEOUT???";
+	a[-(EC_ERROR_NET_NA)] = "Une erreur est survenue lors de la connexion à Internet. Vérifiez vos paramètres Internet dans Paramètres Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[-(EC_ERROR_ECARD)] = "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	a[-(EC_ERROR_REGISTER)] = "Ce code Wii est incorrect.<BR><BR>Pour toute assistance, visitez le site support.nintendo.com.";
+	a[-(EC_ERROR_ALREADY_OWN)] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	msg = a[-status];
+
+    if (status == EC_ERROR_WS_REPORT) {
+    	 msg = getWebServiceErrorMsg(errCode, errInfo);
+    } else if (status == EC_ERROR_NET_CONTENT ||
+               status == EC_ERROR_FAIL ||
+    	       status == EC_ERROR_WS_RECV) {
+    	if (errCode != null && errCode < 0) {
+    	    var httpStatus = errCodeToHTTPStatus(errCode);
+    	    var nhttpStatus = errCodeToNHTTPStatus(errCode);    
+      	    if (nhttpStatus == 0 && shop.isCompatibleMode) {
+    		    msg = "Une erreur est survenue lors de la connexion à Internet. Vérifiez vos paramètres Internet dans les paramètres de la console Wii U.";
+    		} else if (nhttpStatus == 0) {
+    		    msg = "Une erreur est survenue lors de la connexion à Internet. Vérifiez vos paramètres Internet dans Paramètres Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+    		} else if (nhttpStatus != 0) {
+    		    msg = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+    		}
+    	}
+    }
+        
+    if (msg == null || msg == '') {
+    	msg = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	}
+	return msg;
+}
+
+function setErrorHtmlMsg(elem, errorCode, errorMsg)
+{
+    var html =
+	 	'<span class="warningRed">'
+		+ "Code d&rsquo;erreur: <span id='errorCode'></span></span>"
+		+ '<BR><span class="contentsRedM">' + errorMsg + '</span>';
+	elem.innerHTML = html;
+	document.getElementById("errorCode").innerHTML = errorCode;
+}
+
+function setErrorHtml(elem, progress)
+{
+	if (elem != null) {
+	    var errorCode = getOssErrorCode(progress);
+    	var errorMsg = getOssErrorMsg(progress);
+    	setErrorHtmlMsg(elem, errorCode, errorMsg);
+	}
+}
+
+
+// Web service error messages 
+// (only include message that may potentially be displayed to user)
+// (errCode is progress.errCode from a web service)
+// (errInfo is progress.errInfo from a web service)
+function getWebServiceErrorMsg(errCode, errInfo)
+{
+	var a = new Array();
+	
+	// ECS Errors
+	a[617] = "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	a[618] = "Cette Wii Points Card ne peut<BR>pas être utilisée dans votre région.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[621] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[623]	= "Vous avez déjà téléchargé ce titre, et la période d&rsquo;essai est terminée. Vous ne pouvez pas le télécharger à nouveau.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[642] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[643] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[644] = "Vous ne pouvez pas utiliser de carte de crédit avec cette console.<BR><BR>Pour plus de détails, visitez le site support.nintendo.com.";
+	a[645] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	
+	// ECS Gift Errors
+	a[646] = "Une erreur est survenue. Veuillez patienter et réessayer ultérieurement.<BR><BR>Visitez le site support.nintendo.com pour toute assistance si le problème persiste.";
+	a[621] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[626] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[625] = "Une erreur est survenue et ne peut pas être résolue en ce moment. Réessayez plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	
+	// ETS Errors
+	a[705] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[706] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[707] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	
+	// PAS Errors
+	a[810]	= "Une erreur est survenue lors de l&rsquo;utilisation de votre billet de téléchargement Wii.<BR><BR>Pour toute assistance, visitez le site support.nintendo.com.";
+	a[811]	= "Cette Wii Points Card n&rsquo;est plus<BR>valide.";
+	//a[812]	= "???OSS_ERROR_ECARD_NOT_USABLE???";
+	//a[813]	= "???OSS_ERROR_ECARD_NOT_USABLE???";
+	//a[814]	= "???OSS_ERROR_ECARD_NOT_USABLE???";
+	a[815]	= "Le numéro d&rsquo;activation que vous avez entré a déjà été utilisé.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[819]	= "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	
+	a[826]	= "Le serveur est surchargé.<BR><BR>Veuillez réessayer un peu plus tard.";
+	a[829]	= "Le serveur est surchargé.<BR><BR>Veuillez réessayer un peu plus tard.";
+	a[830]	= "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	a[831] = "Cette Wii Points Card ne peut<BR>pas être utilisée dans votre région.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+
+	// IAS Errors 
+	a[901]	= "Ce code Wii est incorrect.<BR><BR>Pour toute assistance, visitez le site support.nintendo.com.";
+	a[903]	= "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[928] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[958]	= "Une erreur est survenue et ne peut pas être résolue en ce moment. Réessayez plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[942] = "Impossible de confirmer ce nom d&rsquo;utilisateur pour le moment à cause d&rsquo;une erreur sur le serveur. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[943]	= "Le nom d&rsquo;utilisateur ou le mot de passe est incorrect. Vérifiez ces informations et réessayez.<BR><BR>Si vous avez oublié votre nom d&rsquo;utilisateur ou votre mot de passe, visitez le site club.nintendo.com.";
+
+	a[941] = "Le nom d&rsquo;utilisateur ou le mot de passe est incorrect. Vérifiez ces informations et réessayez.<BR><BR>Si vous avez oublié votre nom d&rsquo;utilisateur ou votre mot de passe, visitez le site club.nintendo.com.";
+	
+	// More IAS Errors
+	a[1401] = "Le nom d&rsquo;utilisateur ou le mot de passe est incorrect. Vérifiez ces informations et réessayez.<BR><BR>Si vous avez oublié votre nom d&rsquo;utilisateur ou votre mot de passe, visitez le site club.nintendo.com.";
+	a[1402] = "Les limitations de votre compte Club Nintendo ne permettent pas de le relier à votre compte de la Chaîne boutique Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+        a[1403] = "Les limitations de votre compte Club Nintendo ne permettent pas de le relier à votre compte de la Chaîne boutique Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[1499] = "Impossible de confirmer ce nom d&rsquo;utilisateur pour le moment, car une opération d&rsquo;entretien est en cours sur le serveur.<BR><BR>Veuillez nous excuser pour tout inconvénient occasionné et réessayer un peu plus tard.";
+	
+	// OSS Errors
+	a[1610]	= "La date d&rsquo;expiration de ce billet de téléchargement Wii est dépassée.";
+	a[1611]	= "Le code du billet de téléchargement Wii est incorrect.<BR><BR>Visitez support.nintendo.com pour plus de détails.";
+	a[1612] = "Ce billet de téléchargement Wii ne peut pas être utilisé dans votre pays.<BR><BR>Visitez support.nintendo.com pour plus de détails.";
+	a[1613] = "Pour le moment, aucun titre n&rsquo;est disponible pour ce billet de téléchargement Wii. Vérifiez que vous avez entré le bon code.<BR><BR>Note : Si vous avez activé le contrôle parental, tous les titres disponibles sur la Chaîne boutique Wii ne sont peut-être pas affichés. Vérifiez les paramètres du contrôle parental.";
+	
+	
+	var msg = a[errCode];
+	if(msg == null || msg == "") { // default errors
+		if ((errCode >= 1400 && 
+		     errCode <= 1499)) {
+			msg = "Impossible de confirmer ce nom d&rsquo;utilisateur pour le moment à cause d&rsquo;une erreur sur le serveur. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+		}
+	}
+	return msg;
+}
+
+// NOA errors
+function getNOAError(code)
+{
+	var a=new Array();
+	
+	a[NOA_ERROR_CountyRequired] 				= "Veuillez entrer le nom de votre comté.";
+	a[NOA_ERROR_FoundOnBlacklist]				= "Cette carte ne peut pas être utilisée.<BR><BR>Pour plus d&rsquo;informations, consultez le site support.nintendo.com.";
+	a[NOA_ERROR_BillingAddress]                             = "L&rsquo;adresse que vous avez entrée est incorrecte.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidCardType]                            = "Ce numéro de carte n&rsquo;est pas valide.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidVfyValue]                            = "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidCcNumberAndExpDate]                  = "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidCreditCardNumber]			= "Ce numéro de carte n&rsquo;est pas valide.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidExpDate]				= "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidPostalCode]                          = "Ce code postal ne correspond pas au pays enregistré dans les paramètres de la console.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_TechnicalDifficulties]			= "Les informations relatives à votre carte de crédit n&rsquo;ont pas pu être vérifiées. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[NOA_ERROR_TryAgainLater]				= "Les informations relatives à votre carte de crédit n&rsquo;ont pas pu être vérifiées. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+
+	a[NOA_RESULT_ERROR_CreditCardDeclined]			= "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Funds]		= "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Inactive]		= "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Exp]		= "La date d&rsquo;expiration de cette carte est incorrecte.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Code]		= "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_CCNum]		= "Ce numéro de carte n&rsquo;est pas valide.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Limit]            = "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Invalid]		= "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_AVS]		= "Le code postal de l&rsquo;adresse de facturation est incorrect. Vérifiez les informations que vous avez entrées et réessayez.";
+
+	a[NOA_ERROR_EmptyVfyValue]				= "Veuillez entrer les 3 chiffres de votre code de sécurité.";
+
+	var msg = a[code];
+	return msg;
+}
+
+// IAS errors
+function isLoyaltyError(progress)
+{
+	if (progress.status == EC_ERROR_WS_REPORT) {
+		if ((progress.errCode >= 1400 && 
+		     progress.errCode <= 1499) ||
+			(progress.errCode == 942) ||
+			(progress.errCode == 943) ||
+			(progress.errCode == 941)) {
+			return true;
+		}
+	}
+	return false;
+}	
+
+function needCheckRegistration(progress)
+{
+	if (progress.status == EC_ERROR_WS_REPORT) {
+		if ((progress.errCode == 903) ||
+		     (progress.errCode == 642) ||
+		     (progress.errCode == 625)) {
+			return true;
+		}
+	}
+	return false;		
+}
+
+function needSyncEticket(progress)
+{
+	if (progress.status == EC_ERROR_WS_REPORT) {
+		if (progress.errCode == 621) {
+			return true;
+		}
+	}
+	return false;		
+}
+
+
+
+//-->
+
+</script>
+<title>Recherche par console</title>
+<style type="text/css">
+  /* B_03:  Select Platform (VC) */
+
+#text01-01 {
+	position:absolute;
+	left:29px;
+	top:28px;
+	width:442px;
+	height:28px;
+	z-index:51;
+}
+
+.searchItem {
+	border:solid 1px #35beed;
+	background-color: #C4FBFF;
+	position:absolute;
+	left:36px;
+	top:88px;
+	width:540px;
+	height:277px;
+	z-index:44;
+	overflow: auto;
+}
+</style>
+<script type="text/JavaScript">
+<!--
+function initPage()
+{
+	initPageCommon();
+	MM_preloadImages('../Wii/under_banner_b.gif','../Wii/help_b.gif',
+	'../Wii/top_b.gif','../Wii/B_04_halfB_consolebannerE_b.png');
+	setUnderButtonL(true, "Retour", "javascript:showPage('B_23.jsp')", "snd.playSE(cSE_Cancel)");
+}
+var scroll_step = 30;
+function kdown()
+{
+    var _code = event.keyCode;
+	var _obj = document.getElementById('searchItem');
+	switch(_code)
+	{
+	    case 175:    //up
+		case  38:
+		    _obj.scrollTop -= scroll_step;
+			break;
+		case 176:    //down
+		case  40:
+		    _obj.scrollTop += scroll_step;
+		    break;
+	}
+}
+//-->
+</script>
+</head><script type="text/javascript" id="useragent-switcher">navigator.__defineGetter__("userAgent", function() {return "Opera/9.30 (Nintendo Wii; U; ; 2077-4; Wii Shop Channel/21.0(A); en)"})</script>
+
+<body onkeypress="kdown();" onload="initPage(); searchItem.focus();">
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<div id="constElements">
+  <div id="tophelpshadow"><img src="../Wii/top_help_shadow01.gif" width="132" height="75"></div>
+  <div id="help">
+    <img src="../Wii/help_a.gif" name="ManualImage" id="ManualImageID" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('ManualImage','','../Wii/help_b.gif',1); wiiFocusSound();" onclick="showHelp(); wiiSelectSound();" width="52" height="55" border="0">
+    <img src="../Wii/help_gray.gif" id="ManualGrayImageID" style="display:none" width="52" height="55" border="0">
+    <img src="../Wii/spacer.gif" name="HelpSpacer" id="HelpSpacer" style="position:absolute; top:0px; left:0px; display:none" width="52" height="55" border="0">
+  </div>
+
+  <div id="top">
+	<a href="VCRechercheAvancee.html">
+    <img src="../Wii/top_a.gif" name="TopImage" id="TopImageID" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('TopImage','','../Wii/top_b.gif',1); wiiFocusSound();" onclick="showHome(); wiiCancelSound();" width="52" height="55" border="0">
+    <img src="../Wii/top_gray.gif" id="TopGrayImageID" style="display:none" width="52" height="55" border="0">
+    <img src="../Wii/spacer.gif" name="MainSpacer" id="MainSpacer" style="position:absolute; top:0px; left:0px; display:none" width="52" height="55" border="0">
+  </div>
+  
+  <div class="dot" id="line01">･･･････････････････････････････････････････････････････････&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;･･</div>
+  <div class="dot" id="line02">･･･････････････････････････････････････････････････････････････････････････</div>
+  <div class="dot" id="upperLineLong" style="display:none">･･･････････････････････････････････････････････････････････････････････････</div>
+  
+  <div id="balanceInfo">
+    <script type="text/JavaScript">MM_preloadImages('../Wii/Addpoints_everywhere.gif');</script>
+    <img src="../Wii/spacer.gif" name="PointSpacer" id="PointSpacer" style="position:absolute; top:376px; left:239px; z-index:20;" width="130" height="55" border="0">
+    <div id="Wiipoint">
+      <div class="buttonTextBlackM" align="center">Wii Points</div>
+    </div>
+    <div id="point" class="wiiPoint"><span>5000</span></div>
+  </div>
+</div>
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<script language="JavaScript">MM_preloadImages('../Wii/under_banner_b.gif');</script>
+<div id="underButtonL" style="display:none">
+    <div id="underbannershadowL" class="buttonBannerShadow">
+   	  <img src="../Wii/under_banner_shadow.gif" width="211" height="75">
+   	</div>
+    <div id="underbannerL" class="buttonBanner">
+    	<img src="../Wii/under_banner_a.gif" id="underImgL" width="187" height="55">
+    </div>
+    <div id="underspacerL" class="buttonSpacer">
+	  <a href="" id="underlinkL">
+    	<img id="underimageL" src="../Wii/spacer.gif" onmouseover="MM_swapImage('underImgL','','../Wii/under_banner_b.gif',1); snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" width="187" height="55" border="0">
+      </a>	
+    </div>
+    <div id="underwordL" class="buttonTextBlackM buttonWord" align="center">
+    </div>
+</div>
+
+<div id="underButtonR" style="display:none">
+    <div id="underbannershadowR" class="buttonBannerShadow">
+   	  <img src="../Wii/under_banner_shadow.gif" width="211" height="75">
+   	</div>
+    <div id="underbannerR" class="buttonBanner">
+    	<img src="../Wii/under_banner_a.gif" id="underImgR" width="187" height="55">
+    </div>
+    <div id="underspacerR" class="buttonSpacer">
+	  <a href="" id="underlinkR">
+    	<img id="underimageR" src="../Wii/spacer.gif" onmouseover="MM_swapImage('underImgR','','../Wii/under_banner_b.gif',1); snd.playSE( cSE_Forcus ); " onmouseout="MM_swapImgRestore()" width="187" height="55" border="0">
+      </a>	
+    </div>
+    <div id="underwordR" class="buttonTextBlackM buttonWord" align="center">
+    </div>
+</div>
+
+<div id="underButton" style="display:none">
+    <div id="underbannershadow" class="buttonBannerShadow">
+    	<img src="../Wii/under_banner_shadow.gif" width="211" height="75"></div>
+    <div id="underbanner" class="buttonBanner">
+    	<img src="../Wii/under_banner_a.gif" id="underImg" width="187" height="55"></div>
+    <div id="underspacer" class="buttonSpacer">
+	<a href="" id="underlink">
+    	<img id="underimage" src="../Wii/spacer.gif" onmouseover="MM_swapImage('underImg','','../Wii/under_banner_b.gif',1); snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" width="187" height="55" border="0">
+    	</a>
+    </div>
+    <div id="underword" class="buttonTextBlackM buttonWord" align="center"></div>
+</div>
+
+
+<div id="text01-01">
+  <div align="left"><span class="titleBlackL">Recherche par console</span></div>
+</div>
+<div style="position:absolute; left:0px; top:0px; width:1px; height:1px; z-index:6;">
+  <img src="../Wii/spacer.gif" name="ktouch" id="ktouch" width="1" height="1" border="0">
+</div>
+
+<div id="searchItem" class="searchItem">
+
+<div id="banner01" style="position:absolute; left:0px; top:1.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image01" width="244" height="91">
+    </div>
+    <div id="logo01" style="position:absolute; left:11px; top:9.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_WII_E.htm" id="Logo01" width="110" height="52">
+    </div>
+    <div id="word01" style="position:absolute; left:11px; top:62.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">Chaines Wii</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit01-01" style="position:absolute; left:122px; top:25.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit01-02" style="position:absolute; left:198px; top:25.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">4</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer01" style="position:absolute; left:0px; top:1.0px; width:244px; height:91px; z-index:7;">
+      <a href="../WSCh.html">
+        <img src="../Wii/spacer.gif" name="Image01s" id="Image01s" onmouseover="MM_swapImage('Image01','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner02" style="position:absolute; left:244px; top:1.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image02" width="244" height="91">
+    </div>
+    <div id="logo02" style="position:absolute; left:255px; top:9.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_FC_NES_E.gif" id="Logo02" width="110" height="52">
+    </div>
+    <div id="word02" style="position:absolute; left:255px; top:62.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">NES</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit02-01" style="position:absolute; left:366px; top:25.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit02-02" style="position:absolute; left:442px; top:25.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">92</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer02" style="position:absolute; left:244px; top:1.0px; width:244px; height:91px; z-index:7;">
+      <a href="NesPage1.html">
+        <img src="../Wii/spacer.gif" name="Image02s" id="Image02s" onmouseover="MM_swapImage('Image02','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner03" style="position:absolute; left:0px; top:93.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image03" width="244" height="91">
+    </div>
+    <div id="logo03" style="position:absolute; left:11px; top:101.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_SFC_SNES_E.gif" id="Logo03" width="110" height="52">
+    </div>
+    <div id="word03" style="position:absolute; left:11px; top:154.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">Super NES</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit03-01" style="position:absolute; left:122px; top:117.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit03-02" style="position:absolute; left:198px; top:117.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">63</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer03" style="position:absolute; left:0px; top:93.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=SFC%2fSNES')">
+        <img src="../Wii/spacer.gif" name="Image03s" id="Image03s" onmouseover="MM_swapImage('Image03','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner04" style="position:absolute; left:244px; top:93.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image04" width="244" height="91">
+    </div>
+    <div id="logo04" style="position:absolute; left:255px; top:101.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_N64_E.gif" id="Logo04" width="110" height="52">
+    </div>
+    <div id="word04" style="position:absolute; left:255px; top:154.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">Nintendo 64</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit04-01" style="position:absolute; left:366px; top:117.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit04-02" style="position:absolute; left:442px; top:117.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">21</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer04" style="position:absolute; left:244px; top:93.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=N64')">
+        <img src="../Wii/spacer.gif" name="Image04s" id="Image04s" onmouseover="MM_swapImage('Image04','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner05" style="position:absolute; left:0px; top:185.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image05" width="244" height="91">
+    </div>
+    <div id="logo05" style="position:absolute; left:11px; top:193.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_PCE_TG16_E.gif" id="Logo05" width="110" height="52">
+    </div>
+    <div id="word05" style="position:absolute; left:11px; top:246.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">TurboGrafx16</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit05-01" style="position:absolute; left:122px; top:209.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit05-02" style="position:absolute; left:198px; top:209.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">58</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer05" style="position:absolute; left:0px; top:185.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=PCE%2fTG16')">
+        <img src="../Wii/spacer.gif" name="Image05s" id="Image05s" onmouseover="MM_swapImage('Image05','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner06" style="position:absolute; left:244px; top:185.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image06" width="244" height="91">
+    </div>
+    <div id="logo06" style="position:absolute; left:255px; top:193.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_MD_GEN_E.gif" id="Logo06" width="110" height="52">
+    </div>
+    <div id="word06" style="position:absolute; left:255px; top:246.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">Sega Genesis</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit06-01" style="position:absolute; left:366px; top:209.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit06-02" style="position:absolute; left:442px; top:209.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">73</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer06" style="position:absolute; left:244px; top:185.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=MD%2fGEN')">
+        <img src="../Wii/spacer.gif" name="Image06s" id="Image06s" onmouseover="MM_swapImage('Image06','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner07" style="position:absolute; left:0px; top:277.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image07" width="244" height="91">
+    </div>
+    <div id="logo07" style="position:absolute; left:11px; top:285.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_NEOGEO_E.gif" id="Logo07" width="110" height="52">
+    </div>
+    <div id="word07" style="position:absolute; left:11px; top:338.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">NEOGEO</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit07-01" style="position:absolute; left:122px; top:301.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit07-02" style="position:absolute; left:198px; top:301.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">54</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer07" style="position:absolute; left:0px; top:277.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=NEOGEO')">
+        <img src="../Wii/spacer.gif" name="Image07s" id="Image07s" onmouseover="MM_swapImage('Image07','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner08" style="position:absolute; left:244px; top:277.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image08" width="244" height="91">
+    </div>
+    <div id="logo08" style="position:absolute; left:255px; top:285.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_MASTER_E.gif" id="Logo08" width="110" height="52">
+    </div>
+    <div id="word08" style="position:absolute; left:255px; top:338.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">MASTER SYSTEM</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit08-01" style="position:absolute; left:366px; top:301.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit08-02" style="position:absolute; left:442px; top:301.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">15</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer08" style="position:absolute; left:244px; top:277.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=MASTER')">
+        <img src="../Wii/spacer.gif" name="Image08s" id="Image08s" onmouseover="MM_swapImage('Image08','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner09" style="position:absolute; left:0px; top:369.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image09" width="244" height="91">
+    </div>
+    <div id="logo09" style="position:absolute; left:11px; top:377.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_VCA_E.gif" id="Logo09" width="110" height="52">
+    </div>
+    <div id="word09" style="position:absolute; left:11px; top:430.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">Virtual Console Arcade</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit09-01" style="position:absolute; left:122px; top:393.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit09-02" style="position:absolute; left:198px; top:393.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">21</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer09" style="position:absolute; left:0px; top:369.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=VCA')">
+        <img src="../Wii/spacer.gif" name="Image09s" id="Image09s" onmouseover="MM_swapImage('Image09','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  <div id="banner010" style="position:absolute; left:244px; top:369.0px; width:244px; height:91px; z-index:5;">
+      <img src="../Wii/B_04_halfB_consolebannerE_a.png" id="Image010" width="244" height="91">
+    </div>
+    <div id="logo010" style="position:absolute; left:255px; top:377.0px; width:110px; height:52px; z-index:6;">
+      <img src="../Wii/Plat_WIIWARE_E.htm" id="Logo010" width="110" height="52">
+    </div>
+    <div id="word010" style="position:absolute; left:255px; top:430.0px; width:225px; height:20px; z-index:6; overflow: hidden;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="left">
+          <span class="contentsBlack">WiiWare</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit010-01" style="position:absolute; left:366px; top:393.0px; width:76px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">Titres:</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="hit010-02" style="position:absolute; left:442px; top:393.0px; width:31px; height:16px; z-index:6;">
+      <table width="100%" height="100%">
+      <tbody><tr>
+        <td valign="top" align="right">
+          <span class="contentsBlack">347</span>
+        </td>
+      </tr>
+      </tbody></table>
+    </div>
+    <div id="spacer010" style="position:absolute; left:244px; top:369.0px; width:244px; height:91px; z-index:7;">
+      <a href="javascript:showPage('B_04.jsp?p=1&amp;vc=true&amp;platform=WIIWARE')">
+        <img src="../Wii/spacer.gif" name="Image010s" id="Image010s" onmouseover="MM_swapImage('Image010','','../Wii/B_04_halfB_consolebannerE_b.png',1);snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" onclick="snd.playSE(cSE_Decide);" width="244" height="91" border="0">
+       </a>
+     </div>
+  </div>
+
+<img src="../Wii/spacer.gif" id="Image10" width="1" height="1">
+
+
+</body></html>

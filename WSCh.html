@@ -1,0 +1,1794 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- Flush buffer before setting locale to ensure encoding is preserved --><head>
+  <!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="Wii/favicon.ico"> 
+<link href="Wii/AllCh/oss.css" rel="stylesheet" type="text/css">
+<link href="Wii/AllCh/error.css" rel="stylesheet" type="text/css">
+<script type="text/JavaScript">
+<!--
+	var ecCheck = false;
+	var errorCheck = false;
+	var buttonsCheck = false;
+	var imagesCheck = false;
+	var soundCheck = false;
+	var shopCheck = false;
+	var ossCheck = false;
+//-->
+</script>
+
+<script language="JavaScript" src="Wii/AllCh/ec.js"></script>
+<script language="JavaScript" src="Wii/AllCh/error.js"></script>
+<script language="JavaScript" src="Wii/AllCh/buttons.js"></script>
+<script language="JavaScript" src="Wii/AllCh/images.js"></script>
+<script language="JavaScript" src="Wii/AllCh/sound.js"></script>
+<script language="JavaScript" src="Wii/AllCh/shop.js"></script>
+<script language="JavaScript" src="Wii/AllCh/oss.js"></script>
+
+<script type="text/JavaScript">
+<!--
+var testMode = 'false';
+
+function getMethod()
+{
+	return 'GET';	
+}
+
+function getPostParams()
+{
+    var params = "";    
+   
+   return params;
+}
+
+function isConnectingPage()
+{
+    var isConnecting = '';
+    return (isConnecting == 'true');
+}
+
+function initPageCommon()
+{
+	var isShoppingManualEnabled = "true";
+    	if (ecSupportsSession()) {
+        	isShoppingManualEnabled = ec.getSessionValue("isShopManEnabled");
+    	}
+    
+    	if (isShoppingManualEnabled != "true") {
+    		hideElement("tophelpshadow");
+	    	hideElement("help");
+    	}
+    	
+	var ecsUrl = null;
+	var iasUrl = null;
+	var ccsUrl = null;
+	var ucsUrl = null;
+	var currBalance = null;
+
+    // js file loading check
+	var shopErrCheck = new wiiShop();
+	if (shopErrCheck != null && "error" in shopErrCheck) {
+		// shopErrCheck.error(209620, 1);
+		if (!ecCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!errorCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!buttonsCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!imagesCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!soundCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!shopCheck) {
+			shopErrCheck.error(209620, 1);
+		} else if (!ossCheck) {
+			shopErrCheck.error(209620, 1);
+		}
+	}
+
+	init();
+	
+	// Cancel any ongoing async ops
+	ec.cancelOperation();
+	
+	ec.setWebSvcUrls(ecsUrl, iasUrl);
+	ec.setContentUrls (ccsUrl, ucsUrl);
+	
+	
+
+	imagesPath = "/oss/oss/common/images/";
+	htmlPath = "/oss/oss/common/html";
+
+	ecTimeout = new ECTimeout(parseInt("60000"));
+	
+	
+	currBalance = document.getElementById("currentBalance");
+	if(currBalance) {
+		currBalance.innerHTML = getBalance();
+	}		
+	
+	setLogUrl("Log.jsp");
+
+    if(shop.isCompatibleMode)
+    {
+        setEulaUrl("L_01.jsp");
+    }
+    else
+    {
+        setEulaUrl("L_03_UA_1.jsp");
+    }
+
+	
+	MM_preloadImages('Wii/under_banner_a.gif');
+	var supportsCreditCard = 'false';
+	if (ecSupportsSession()) {
+        	ec.setSessionValue("supportsCreditCard", supportsCreditCard);
+    	}
+
+    updateHistory();
+	var isConnecting = isConnectingPage();
+    setConnectingToServer(isConnecting);
+    
+    if (isHRPDisablePage()) {
+	   	wiiDisableHRP();
+	} else {
+	   	wiiEnableHRP();
+	}
+}
+
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+
+
+// Takes a progress object and returns the OSS error message to be displayed to the user
+function getOssErrorMsg(progress)
+{
+	if (progress.status >= 0) { return ""; }
+	
+    var status = progress.status;
+    var errCode = progress.errCode;
+    var errInfo = progress.errInfo;
+
+    var msg;	
+
+	var a = new Array();	
+	// EC lib Errors
+	//a[-(EC_ERROR_CANCELED)] = "???OSS_ERROR_NETWORK_TIMEOUT???";
+	a[-(EC_ERROR_NET_NA)] = "Une erreur est survenue lors de la connexion à Internet. Vérifiez vos paramètres Internet dans Paramètres Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[-(EC_ERROR_ECARD)] = "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	a[-(EC_ERROR_REGISTER)] = "Ce code Wii est incorrect.<BR><BR>Pour toute assistance, visitez le site support.nintendo.com.";
+	a[-(EC_ERROR_ALREADY_OWN)] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	msg = a[-status];
+
+    if (status == EC_ERROR_WS_REPORT) {
+    	 msg = getWebServiceErrorMsg(errCode, errInfo);
+    } else if (status == EC_ERROR_NET_CONTENT ||
+               status == EC_ERROR_FAIL ||
+    	       status == EC_ERROR_WS_RECV) {
+    	if (errCode != null && errCode < 0) {
+    	    var httpStatus = errCodeToHTTPStatus(errCode);
+    	    var nhttpStatus = errCodeToNHTTPStatus(errCode);    
+      	    if (nhttpStatus == 0 && shop.isCompatibleMode) {
+    		    msg = "Une erreur est survenue lors de la connexion à Internet. Vérifiez vos paramètres Internet dans les paramètres de la console Wii U.";
+    		} else if (nhttpStatus == 0) {
+    		    msg = "Une erreur est survenue lors de la connexion à Internet. Vérifiez vos paramètres Internet dans Paramètres Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+    		} else if (nhttpStatus != 0) {
+    		    msg = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+    		}
+    	}
+    }
+        
+    if (msg == null || msg == '') {
+    	msg = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	}
+	return msg;
+}
+
+function setErrorHtmlMsg(elem, errorCode, errorMsg)
+{
+    var html =
+	 	'<span class="warningRed">'
+		+ "Code d&rsquo;erreur: <span id='errorCode'></span></span>"
+		+ '<BR><span class="contentsRedM">' + errorMsg + '</span>';
+	elem.innerHTML = html;
+	document.getElementById("errorCode").innerHTML = errorCode;
+}
+
+function setErrorHtml(elem, progress)
+{
+	if (elem != null) {
+	    var errorCode = getOssErrorCode(progress);
+    	var errorMsg = getOssErrorMsg(progress);
+    	setErrorHtmlMsg(elem, errorCode, errorMsg);
+	}
+}
+
+
+// Web service error messages 
+// (only include message that may potentially be displayed to user)
+// (errCode is progress.errCode from a web service)
+// (errInfo is progress.errInfo from a web service)
+function getWebServiceErrorMsg(errCode, errInfo)
+{
+	var a = new Array();
+	
+	// ECS Errors
+	a[617] = "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	a[618] = "Cette Wii Points Card ne peut<BR>pas être utilisée dans votre région.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[621] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[623]	= "Vous avez déjà téléchargé ce titre, et la période d&rsquo;essai est terminée. Vous ne pouvez pas le télécharger à nouveau.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[642] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[643] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[644] = "Vous ne pouvez pas utiliser de carte de crédit avec cette console.<BR><BR>Pour plus de détails, visitez le site support.nintendo.com.";
+	a[645] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	
+	// ECS Gift Errors
+	a[646] = "Une erreur est survenue. Veuillez patienter et réessayer ultérieurement.<BR><BR>Visitez le site support.nintendo.com pour toute assistance si le problème persiste.";
+	a[621] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[626] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[625] = "Une erreur est survenue et ne peut pas être résolue en ce moment. Réessayez plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	
+	// ETS Errors
+	a[705] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[706] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[707] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	
+	// PAS Errors
+	a[810]	= "Une erreur est survenue lors de l&rsquo;utilisation de votre billet de téléchargement Wii.<BR><BR>Pour toute assistance, visitez le site support.nintendo.com.";
+	a[811]	= "Cette Wii Points Card n&rsquo;est plus<BR>valide.";
+	//a[812]	= "???OSS_ERROR_ECARD_NOT_USABLE???";
+	//a[813]	= "???OSS_ERROR_ECARD_NOT_USABLE???";
+	//a[814]	= "???OSS_ERROR_ECARD_NOT_USABLE???";
+	a[815]	= "Le numéro d&rsquo;activation que vous avez entré a déjà été utilisé.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[819]	= "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	
+	a[826]	= "Le serveur est surchargé.<BR><BR>Veuillez réessayer un peu plus tard.";
+	a[829]	= "Le serveur est surchargé.<BR><BR>Veuillez réessayer un peu plus tard.";
+	a[830]	= "Le numéro d&rsquo;activation que vous avez entré est incorrect. Veuillez recommencer.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.<BR>";
+	a[831] = "Cette Wii Points Card ne peut<BR>pas être utilisée dans votre région.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+
+	// IAS Errors 
+	a[901]	= "Ce code Wii est incorrect.<BR><BR>Pour toute assistance, visitez le site support.nintendo.com.";
+	a[903]	= "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[928] = "Une erreur est survenue. Attendez un moment puis réessayez.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[958]	= "Une erreur est survenue et ne peut pas être résolue en ce moment. Réessayez plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[942] = "Impossible de confirmer ce nom d&rsquo;utilisateur pour le moment à cause d&rsquo;une erreur sur le serveur. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[943]	= "Le nom d&rsquo;utilisateur ou le mot de passe est incorrect. Vérifiez ces informations et réessayez.<BR><BR>Si vous avez oublié votre nom d&rsquo;utilisateur ou votre mot de passe, visitez le site club.nintendo.com.";
+
+	a[941] = "Le nom d&rsquo;utilisateur ou le mot de passe est incorrect. Vérifiez ces informations et réessayez.<BR><BR>Si vous avez oublié votre nom d&rsquo;utilisateur ou votre mot de passe, visitez le site club.nintendo.com.";
+	
+	// More IAS Errors
+	a[1401] = "Le nom d&rsquo;utilisateur ou le mot de passe est incorrect. Vérifiez ces informations et réessayez.<BR><BR>Si vous avez oublié votre nom d&rsquo;utilisateur ou votre mot de passe, visitez le site club.nintendo.com.";
+	a[1402] = "Les limitations de votre compte Club Nintendo ne permettent pas de le relier à votre compte de la Chaîne boutique Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+        a[1403] = "Les limitations de votre compte Club Nintendo ne permettent pas de le relier à votre compte de la Chaîne boutique Wii.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[1499] = "Impossible de confirmer ce nom d&rsquo;utilisateur pour le moment, car une opération d&rsquo;entretien est en cours sur le serveur.<BR><BR>Veuillez nous excuser pour tout inconvénient occasionné et réessayer un peu plus tard.";
+	
+	// OSS Errors
+	a[1610]	= "La date d&rsquo;expiration de ce billet de téléchargement Wii est dépassée.";
+	a[1611]	= "Le code du billet de téléchargement Wii est incorrect.<BR><BR>Visitez support.nintendo.com pour plus de détails.";
+	a[1612] = "Ce billet de téléchargement Wii ne peut pas être utilisé dans votre pays.<BR><BR>Visitez support.nintendo.com pour plus de détails.";
+	a[1613] = "Pour le moment, aucun titre n&rsquo;est disponible pour ce billet de téléchargement Wii. Vérifiez que vous avez entré le bon code.<BR><BR>Note : Si vous avez activé le contrôle parental, tous les titres disponibles sur la Chaîne boutique Wii ne sont peut-être pas affichés. Vérifiez les paramètres du contrôle parental.";
+	
+	
+	var msg = a[errCode];
+	if(msg == null || msg == "") { // default errors
+		if ((errCode >= 1400 && 
+		     errCode <= 1499)) {
+			msg = "Impossible de confirmer ce nom d&rsquo;utilisateur pour le moment à cause d&rsquo;une erreur sur le serveur. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+		}
+	}
+	return msg;
+}
+
+// NOA errors
+function getNOAError(code)
+{
+	var a=new Array();
+	
+	a[NOA_ERROR_CountyRequired] 				= "Veuillez entrer le nom de votre comté.";
+	a[NOA_ERROR_FoundOnBlacklist]				= "Cette carte ne peut pas être utilisée.<BR><BR>Pour plus d&rsquo;informations, consultez le site support.nintendo.com.";
+	a[NOA_ERROR_BillingAddress]                             = "L&rsquo;adresse que vous avez entrée est incorrecte.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidCardType]                            = "Ce numéro de carte n&rsquo;est pas valide.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidVfyValue]                            = "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidCcNumberAndExpDate]                  = "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidCreditCardNumber]			= "Ce numéro de carte n&rsquo;est pas valide.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidExpDate]				= "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_InvalidPostalCode]                          = "Ce code postal ne correspond pas au pays enregistré dans les paramètres de la console.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_ERROR_TechnicalDifficulties]			= "Les informations relatives à votre carte de crédit n&rsquo;ont pas pu être vérifiées. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+	a[NOA_ERROR_TryAgainLater]				= "Les informations relatives à votre carte de crédit n&rsquo;ont pas pu être vérifiées. Veuillez réessayer un peu plus tard.<BR><BR>Pour toute assistance, visitez le site<BR>support.nintendo.com.";
+
+	a[NOA_RESULT_ERROR_CreditCardDeclined]			= "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Funds]		= "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Inactive]		= "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Exp]		= "La date d&rsquo;expiration de cette carte est incorrecte.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Code]		= "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_CCNum]		= "Ce numéro de carte n&rsquo;est pas valide.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Limit]            = "Cette carte ne peut pas être utilisée.<BR><BR>Contactez la compagnie qui l&rsquo;a délivrée pour plus d&rsquo;informations.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_Invalid]		= "Les informations relatives à votre carte de crédit sont incorrectes.<BR><BR>Vérifiez les informations que vous avez entrées et réessayez.";
+	a[NOA_RESULT_ERROR_CreditCardDeclined_AVS]		= "Le code postal de l&rsquo;adresse de facturation est incorrect. Vérifiez les informations que vous avez entrées et réessayez.";
+
+	a[NOA_ERROR_EmptyVfyValue]				= "Veuillez entrer les 3 chiffres de votre code de sécurité.";
+
+	var msg = a[code];
+	return msg;
+}
+
+// IAS errors
+function isLoyaltyError(progress)
+{
+	if (progress.status == EC_ERROR_WS_REPORT) {
+		if ((progress.errCode >= 1400 && 
+		     progress.errCode <= 1499) ||
+			(progress.errCode == 942) ||
+			(progress.errCode == 943) ||
+			(progress.errCode == 941)) {
+			return true;
+		}
+	}
+	return false;
+}	
+
+function needCheckRegistration(progress)
+{
+	if (progress.status == EC_ERROR_WS_REPORT) {
+		if ((progress.errCode == 903) ||
+		     (progress.errCode == 642) ||
+		     (progress.errCode == 625)) {
+			return true;
+		}
+	}
+	return false;		
+}
+
+function needSyncEticket(progress)
+{
+	if (progress.status == EC_ERROR_WS_REPORT) {
+		if (progress.errCode == 621) {
+			return true;
+		}
+	}
+	return false;		
+}
+
+
+
+//-->
+
+</script>
+<title>Catalogue</title>
+<style type="text/css">
+  /* B_04:  Software Catalog */
+#textIcrExpire {
+    position:absolute;
+    left:36px;
+    top:88px;
+    width:540px;
+    height:200px;
+    z-index:37;
+}
+
+
+#import-E {
+	position:absolute;
+	left:432px;
+	top:9px;
+	width:40px;
+	height:31px;
+	z-index:10;
+}
+#import-J {
+	position:absolute;
+	left:436px;
+	top:6px;
+	width:36px;
+	height:36px;
+	z-index:10;
+}
+#import-P {
+	position:absolute;
+	left:436px;
+	top:6px;
+	width:36px;
+	height:36px;
+	z-index:10;
+}
+.catalogFrame {
+	position:absolute;
+	border:solid 1px #35beed;
+	left:36px;
+	top:88px;
+	width:540px;
+	height:277px;
+	z-index:44;
+	overflow:auto;
+}
+#text01-01 {
+	position:absolute;
+	left:29px;
+	top:28px;
+	width:442px;
+	height:36px;
+	z-index:33;
+	overflow:hidden;
+}
+#text01-02 {
+	position:absolute;
+	left:29px;
+	top:28px;
+	width:442px;
+	height:36px;
+	z-index:34;
+	overflow:hidden;
+}
+#text02-01 {
+	position:absolute;
+	left:36px;
+	top:88px;
+	width:540px;
+	height:277px;
+	z-index:37
+}
+#page {
+	position:absolute;
+	left:428px;
+	top:385px;
+	width:92px;
+	height:36px;
+	z-index:20;
+}
+
+#arrowR {
+	position:absolute;
+	left:525px;
+	top:385px;
+	width:52px;
+	height:52px;
+	z-index:39;
+}
+#arrowRshadow {
+	position:absolute;
+	left:516px;
+	top:377px;
+	width:71px;
+	height:72px;
+	z-index:2;
+}
+#arrowL {
+	position:absolute;
+	left: 372px;
+	top: 385px;
+	width:52px;
+	height:52px;
+	z-index:38;
+}
+#arrowLshadow {
+	position:absolute;
+	left:362px;
+	top:377px;
+	width:71px;
+	height:72px;
+	z-index:1;
+}
+/* B_04:  Software Catalog */
+
+body {
+	width: 500px; height: 400px;
+	background-repeat: no-repeat;
+	background-color: #FFFFFF; 
+}
+#Laypanel04er23 {
+	position:absolute;
+	left:0px;
+	top:277px;
+	width:488px;
+	height:91px;
+	z-index:1;
+}
+#ImageforCatalogpage {
+	position:absolute;
+	left:18px;
+	top:9px;
+	width:96px;
+	height:72px;
+	z-index:9;
+}
+#dammyImage {
+	position:absolute;
+	left:18px;
+	top:194px;
+	width:96px;
+	height:72px;
+	z-index:4;
+}
+#TitleName1stline {	position:absolute;
+	left:120px;
+	top:8px;
+	width:350px;
+	z-index:10;
+}
+#Publisher {
+	position:absolute;
+	left:120px;
+	top:46px;
+	width:350px;
+	height:18px;
+	z-index:12;
+}
+#Platform {
+	position:absolute;
+	left:120px;
+	top:64px;
+	width:220px;
+	height:14px;
+	z-index:13;
+}
+#points {
+	position:absolute;
+	left:264px;
+	top:64px;
+	width:206px;
+	height:18px;
+	z-index:2;
+}
+#TitleName2stline {
+	position:absolute;
+	left:120px;
+	top:26px;
+	width:350px;
+	z-index:11;
+}
+#NEW1 {
+	position:absolute;
+	left:18px;
+	top:-20px;
+	width:150px;
+	height:23px;
+	z-index:6;
+}
+#NEW2 {
+	position:absolute;
+	left:176px;
+	top:-20px;
+	width:150px;
+	height:16px;
+	z-index:5;
+}
+#NEWtext1 {
+	position:absolute;
+	left:21px;
+	top:-18px;
+	width:145px;
+	height:16px;
+	z-index:7;
+}
+#NEWtext2 {
+	position:absolute;
+	left:179px;
+	top:-18px;
+	width:145px;
+	height:16px;
+	z-index:7;
+}
+#spacer {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:488px;
+	height:91px;
+	z-index:14;
+}
+
+</style>
+<script type="text/JavaScript">
+<!--
+function initPage()
+{
+	initPageCommon();
+        MM_preloadImages('Wii/under_banner_b.gif','Wii/help_b.gif',
+                         'Wii/top_b.gif','Wii/arrowL_page_b.gif',
+                         'Wii/B_04_softbanner_b.gif',
+                         'Wii/B_04_softbannerP_b.gif',
+                         'Wii/arrowR_page_b.gif');
+
+    setUnderButtonL(true, "Retour", "javascript:showBack()", "wiiCancelSound()");
+  
+
+	if (ecSupportsSession()) {
+		// possibly set session variables in B_24, clear them in B_04 in case of Back button pressed.
+		ec.setSessionValue("giftStatus", null);
+		trace("clear giftStatus in B_04. ");
+		ec.setSessionValue("redownloadFlag", null);
+		trace("clear redownloadFlag in B_04. ");
+		ec.setSessionValue("senderIndex", null);
+		trace("clear senderIndex in B_04. ");
+		ec.setSessionValue("transId", null);
+		trace("clear transId in B_04. ");	
+		ec.setSessionValue("transType", null);
+		trace("clear transType in B_04. ");
+	}
+		
+  
+	var pageCount = '1';
+	if (pageCount > 0)
+		document.getElementById("catalogFrame").focus();
+
+
+}
+
+
+
+function showIcrExpirePage()
+{
+    
+    hideTopHelpElements();
+    hideElement("catalogFrame");
+    hideElement("underButtonL");
+    hideElement("page");
+    hideElement("arrowR");
+    hideElement("arrowRshadow");
+    hideElement("arrowL");
+    hideElement("arrowLshadow");
+    hideElement("text02-01");
+    disableWiiPointButton();
+
+    
+    showElement("icrExpirePage");
+    setUnderButton(true, "Nouvel essai", "javascript:shop.retry();", "wiiSelectSound()");
+}
+
+
+
+var scroll_step = 30;
+function kdown()
+{
+
+
+	var _code = event.keyCode;
+	var _obj = document.getElementById('catalogFrame');
+	if (_obj != null) {
+		switch(_code)
+		{
+			case 175:    //up
+			case  38:
+				_obj.scrollTop -= scroll_step;
+				break;
+			case 176:    //down
+			case  40:
+				_obj.scrollTop += scroll_step;
+				break;
+
+		}
+	}
+}
+
+function doPrePost() {
+	var params = getPostParams();
+	var currPath = location.pathname;
+	var i = currPath.lastIndexOf("/");
+        if (i >= 0) {
+            page = currPath.substr(i+1);
+        }
+	var preParams = "";
+	var paramArray = params.split("&");
+	var j;
+
+	var nowpreP = '0';
+	if (nowpreP < 1) {
+		nowpreP = '1';
+	}
+
+	var preP = 'p='+nowpreP;
+	for (j in paramArray) {
+	    var param = paramArray[j];
+	    if (param.indexOf("p=") == 0) {
+	        continue;
+	    }
+	    if (preParams != "") {
+		preParams += "&";
+	    }
+		preParams += param;
+	}
+	if (preParams != "") {
+	    preParams += "&";
+  	}
+  	preParams += preP;
+
+	var secureUrl = getSecureUrl(page);
+	trace("in B_04 doPrePost, secureUrl=" + secureUrl)
+	trace("in B_04 doPrePost, preParams=" + preParams);
+	doPost(secureUrl, preParams);
+}
+	
+function doNextPost() {
+	var params = getPostParams();
+	var currPath = location.pathname;
+	var i = currPath.lastIndexOf("/");
+        if (i >= 0) {
+            page = currPath.substr(i+1);
+        }
+	var nextParams = "";
+	var paramArray = params.split("&");
+	var j;
+
+	var nownextP = '2';
+	if (nownextP > 1) {
+		nownextP = 1;
+	}
+
+	var nextP = 'p='+nownextP;
+	for (j in paramArray) {
+	    var param = paramArray[j];
+	    if (param.indexOf("p=") == 0) {
+	        continue;
+	    }
+	    if (nextParams != "") {
+		nextParams += "&";
+	    }
+	    nextParams += param;
+	}
+	if (nextParams != "") {
+	    nextParams += "&";
+	}
+	nextParams += nextP;
+	
+	var secureUrl = getSecureUrl(page);
+	trace("in B_04 doNextPost, secureUrl=" + secureUrl)
+	trace("in B_04 doNextPost, nextParams=" + nextParams);
+	doPost(secureUrl, nextParams);
+}
+
+//-->
+</script>
+</head>
+<body onkeypress="kdown();" onload="initPage();">
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<div id="constElements">
+  <div id="tophelpshadow"><img src="Wii/AllCh/top_help_shadow01.gif" width="132" height="75"></div>
+  <div id="help">
+    <img src="Wii/AllCh/help_a.gif" name="ManualImage" id="ManualImageID" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('ManualImage','','Wii/help_b.gif',1); wiiFocusSound();" onclick="showHelp(); wiiSelectSound();" width="52" height="55" border="0">
+    <img src="Wii/AllCh/help_gray.gif" id="ManualGrayImageID" style="display:none" width="52" height="55" border="0">
+    <img src="Wii/AllCh/spacer.gif" name="HelpSpacer" id="HelpSpacer" style="position:absolute; top:0px; left:0px; display:none" width="52" height="55" border="0">
+  </div>
+
+  <div id="top">
+	<a href="WSCA.html">
+    <img src="Wii/AllCh/top_a.gif" name="TopImage" id="TopImageID" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('TopImage','','Wii/top_b.gif',1); wiiFocusSound();" onclick="showHome(); wiiCancelSound();" width="52" height="55" border="0">
+    <img src="Wii/AllCh/top_gray.gif" id="TopGrayImageID" style="display:none" width="52" height="55" border="0">
+    <img src="Wii/AllCh/spacer.gif" name="MainSpacer" id="MainSpacer" style="position:absolute; top:0px; left:0px; display:none" width="52" height="55" border="0">
+  </div>
+  
+  <div class="dot" id="line01">･･･････････････････････････････････････････････････････････&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;･･</div>
+  <div class="dot" id="line02">･･･････････････････････････････････････････････････････････････････････････</div>
+  <div class="dot" id="upperLineLong" style="display:none">･･･････････････････････････････････････････････････････････････････････････</div>
+  
+  <div id="balanceInfo">
+    <script type="text/JavaScript">MM_preloadImages('Wii/Addpoints_everywhere.gif');</script>
+    <img src="Wii/AllCh/spacer.gif" name="PointSpacer" id="PointSpacer" style="position:absolute; top:376px; left:239px; z-index:20;" width="130" height="55" border="0">
+    <div id="Wiipoint">
+      <div class="buttonTextBlackM" align="center">Wii Points</div>
+    </div>
+    <div id="point" class="wiiPoint"><span>5000</span></div>
+  </div>
+</div>
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<script language="JavaScript">MM_preloadImages('Wii/under_banner_b.gif');</script>
+<div id="underButtonL" style="display:none">
+    <div id="underbannershadowL" class="buttonBannerShadow">
+   	  <img src="Wii/AllCh/under_banner_shadow.gif" width="211" height="75">
+   	</div>
+    <div id="underbannerL" class="buttonBanner">
+    	<img src="Wii/AllCh/under_banner_a.gif" id="underImgL" width="187" height="55">
+    </div>
+    <div id="underspacerL" class="buttonSpacer">
+	  <a href="" id="underlinkL">
+    	<img id="underimageL" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('underImgL','','Wii/under_banner_b.gif',1); snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" width="187" height="55" border="0">
+      </a>	
+    </div>
+    <div id="underwordL" class="buttonTextBlackM buttonWord" align="center">
+    </div>
+</div>
+
+<div id="underButtonR" style="display:none">
+    <div id="underbannershadowR" class="buttonBannerShadow">
+   	  <img src="Wii/AllCh/under_banner_shadow.gif" width="211" height="75">
+   	</div>
+    <div id="underbannerR" class="buttonBanner">
+    	<img src="Wii/AllCh/under_banner_a.gif" id="underImgR" width="187" height="55">
+    </div>
+    <div id="underspacerR" class="buttonSpacer">
+	  <a href="" id="underlinkR">
+    	<img id="underimageR" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('underImgR','','Wii/under_banner_b.gif',1); snd.playSE( cSE_Forcus ); " onmouseout="MM_swapImgRestore()" width="187" height="55" border="0">
+      </a>	
+    </div>
+    <div id="underwordR" class="buttonTextBlackM buttonWord" align="center">
+    </div>
+</div>
+
+<div id="underButton" style="display:none">
+    <div id="underbannershadow" class="buttonBannerShadow">
+    	<img src="Wii/AllCh/under_banner_shadow.gif" width="211" height="75"></div>
+    <div id="underbanner" class="buttonBanner">
+    	<img src="Wii/AllCh/under_banner_a.gif" id="underImg" width="187" height="55"></div>
+    <div id="underspacer" class="buttonSpacer">
+	<a href="" id="underlink">
+    	<img id="underimage" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('underImg','','Wii/under_banner_b.gif',1); snd.playSE( cSE_Forcus );" onmouseout="MM_swapImgRestore()" width="187" height="55" border="0">
+    	</a>
+    </div>
+    <div id="underword" class="buttonTextBlackM buttonWord" align="center"></div>
+</div>
+
+
+<div id="text01-01">
+<div id="listinfo" class="titleBlackL" align="left">
+            <script language="JavaScript">
+                document.write("Chaînes Wii".replace('<BR>', ' '));
+            </script>
+        </div>
+    </div>
+
+
+<div style="position:absolute; left:0px; top:0px; width:1px; height:1px; z-index:6;">
+    <img src="Wii/AllCh/spacer.gif" name="ktouch" id="ktouch" width="1" height="1" border="0">
+</div>
+<div id="page">
+  <div class="buttonTextBlackM" align="right">
+    <div align="center">
+      1/1</div>
+  </div>
+</div>
+<div id="catalogFrame" class="catalogFrame">
+    <!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<script type="text/JavaScript">
+<!--
+
+function getSCAUserStatus(){
+  var isSilverSCA = "";
+  var isGoldSCA = "";
+  if(ecSupportsSession()){
+    isSilverSCA = ec.getSessionValue("silverStatus");
+            isGoldSCA = ec.getSessionValue("goldStatus");
+  }
+  if(isGoldSCA == "ACTIVATED"){
+      return "SCAGOLD";
+  }else if(isSilverSCA == "ACTIVATED"){
+      return "SCASILVER";
+  }else{
+      return "";
+  }
+}
+function getSCAUserDiscountType(){
+  var status = getSCAUserStatus();
+  if(status == "SCAGOLD") {
+      return ec.getSessionValue("goldDiscountType");
+  }else if(status == "SCASILVER"){
+      return ec.getSessionValue("silverDiscountType");
+  }else{
+      return "";
+  }
+}
+
+//-->
+</script>
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<script type="text/JavaScript">
+<!--
+
+
+function getICRUserStatus() {
+    var status ;
+
+    if ( ecSupportsSession() ){
+        status =  ec.getSessionValue("icrStatus");
+
+        if ( status == "ACTIVATED" || status == "COMPLETE" || status == "DISABLED" ){
+            return status ;
+        }
+    }
+
+    return "DISABLED";
+}
+
+function getICRUserDiscountType(){
+    var status;
+    if ( ecSupportsSession()){
+        status=getICRUserStatus();
+        if(status == "ACTIVATED"){
+            return ec.getSessionValue("icrDiscountType");
+        }
+    }
+    return "";
+}
+
+
+
+function isICRExpired(){
+    
+        trace("titleDetails is empty");
+        return true;
+        
+}
+//-->
+</script>
+
+<!--  -----------------------------------------------------  -->
+<!--  Copyright 2005-2014 Acer Cloud Technology, Inc.        -->
+<!--  All Rights Reserved.                                   -->
+<!--                                                         -->
+<!--  This software contains confidential information and    -->
+<!--  trade secrets of Acer Cloud Technology, Inc.           -->
+<!--  Use, disclosure or reproduction is prohibited without  -->
+<!--  the prior express written permission of Acer Cloud     -->
+<!--  Technology, Inc.                                       -->
+<!--  -----------------------------------------------------  -->
+<script type="text/JavaScript">
+<!--
+
+var supportSCA = ("false" == "true");
+
+function isScaGiftable(titleId) {
+	if(!supportSCA) {
+		return false;
+	}
+	if(titleId == null || titleId == "") {
+		return false;
+	}
+	if(getSCAUserStatus() == "") {
+		return false;
+	}
+
+	var scaGiftableTitlesString = ec.getSessionValue("scaGiftableList"); 
+	trace("giftTitle " + titleId); 
+	trace("scaGiftableList: " + scaGiftableTitlesString); 
+
+	if(scaGiftableTitlesString == null) {
+		return false;
+	}
+	
+	var scaGiftableTitleArray = scaGiftableTitlesString.split(","); 
+	var size = scaGiftableTitleArray.length; 
+	for(i=0; i<size; i++) { 
+		if(scaGiftableTitleArray[i] == titleId) { 
+			return true;
+		} 
+	} 
+
+	return false;
+}
+
+function getScaDiscount() {
+	if(!supportSCA) {
+		return "0";
+	}
+	var discountList = new Array(); 
+	discountList['SCA10']  = ec.getSessionValue("sca10DiscountAmount");
+	discountList['SCA20']  = ec.getSessionValue("sca20DiscountAmount");
+	discountList['SCA20B'] = ec.getSessionValue("sca20BDiscountAmount");
+
+	var discount = discountList[getSCAUserDiscountType()]; 
+	trace("SCA discount: " + discount); 
+	if((typeof(discount) != 'undefined') && (discount != "") && (discount != null)) {
+		return discount;
+	} else {
+		return "0";
+	}
+}
+
+function getScaPurchaseInfo(){
+	if(!supportSCA) {
+		return "";
+	}
+
+	var purchaseInfoList = new Array(); 
+	purchaseInfoList['SCA10']  = ec.getSessionValue("sca10DiscountXml");
+	purchaseInfoList['SCA20']  = ec.getSessionValue("sca20DiscountXml");
+	purchaseInfoList['SCA20B'] = ec.getSessionValue("sca20BDiscountXml");
+   
+	var purchaseInfo = purchaseInfoList[getSCAUserDiscountType()]; 
+	trace("SCA purchaseInfo: " + purchaseInfo);	
+	if((typeof(purchaseInfo) != 'undefined') && (purchaseInfo != null)) {
+		return purchaseInfo;
+	} else {
+		return "";
+	}
+}
+
+function getScaGiftDiscount(titleId) {
+	if(isScaGiftable(titleId)) {
+        return getScaDiscount();
+	 } else {
+		return "0";
+	}	
+}
+
+function getScaGiftPurchaseInfo(titleId) {
+	if(isScaGiftable(titleId)) {
+        return getScaPurchaseInfo();
+	} else {
+		return "";
+	}
+}
+
+function removeScaGiftableTitle(titleId) {
+	var scaGiftableTitlesString = ec.getSessionValue("scaGiftableList"); 
+	trace("scaGiftableList(old): " + scaGiftableTitlesString); 
+    if(scaGiftableTitlesString != null){
+	    scaGiftableTitlesString = scaGiftableTitlesString.replace(titleId, "").replace(",,", ",");
+    }
+	trace("scaGiftableList(new): " + scaGiftableTitlesString); 
+	ec.setSessionValue("scaGiftableList", scaGiftableTitlesString);
+}
+
+function getIcrDiscount() {
+    if(getICRUserDiscountType() == "ICR1"){
+        return ec.getSessionValue("icrDiscountAmount");
+    }else{
+        return "0";
+    }
+}
+
+function getIcrPurchaseInfo() {
+    if(getICRUserDiscountType() == "ICR1"){
+        return ec.getSessionValue("icrDiscountXml");
+    }else{
+        return "";
+    }
+}
+//-->
+</script>
+<script type="text/JavaScript">
+<!--
+	var giftTransTitles = null;
+	if (ecSupportsSession()) {
+	        giftTransTitles = ec.getSessionValue("giftTransTitles");
+	}
+	var giftsArray = new Array();
+	if (giftTransTitles != null) {
+		var gifts = giftTransTitles.split(", ");
+		for(i = 0; i < gifts.length; i++){
+			if (gifts[i] != "") {
+				var pair = gifts[i].split(":");
+				giftsArray[pair[0]] = pair[1];
+				trace("stored gift titleId: "+pair[0]+", transId: "+pair[1]);
+			}
+		}
+	}
+//-->
+</script>
+
+
+<!-- If trial internet channel, show B_02 with internet channel escape clause -->
+    <div id="panel01" style="position:absolute; left:0px; top:24px; width:488px; height:91px; z-index:1">
+      <div class="contentsBlack" id="Platform">
+          Chaines Wii</div>
+      <div class="contentsBlack" id="Publisher">
+          Nintendo</div>
+      <div style="overflow:hidden" nowrap="" id="TitleName1stline">
+	  <span id="title1_1" class="catalogTitleBlack_01">Transfert Wii U</span>
+      </div>
+      
+      <div id="ImageforCatalogpage">
+        <img src="Wii/AllCh/FFFD000B.gif" width="96" height="72">
+        </div>
+      
+      <div id="UPDATE1" style="display:none">
+        <div id="NEW1"><img src="Wii/AllCh/new_update.png" width="150" height="23"></div>
+            <div class="headerBlueM" id="NEWtext1"><div align="center">Mis à jour!</div></div>
+          </div>
+      
+      <div id="giftTitle1" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showGiftTrans('')" target="_top" name="goTitleDetailsLink1">
+            <img name="ImageB1" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image1','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint1" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="storedGiftTitle1" style="display:none">     
+        <div id="spacer">
+          <a id="giftAnchor1" href="" name="goTitleDetailsLink1">
+            <img name="ImageB1" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image1','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint1" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="regularTitle1" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showPage('B_05.jsp?titleId=0001000148435345')" target="_top" name="goTitleDetailsLink1">
+            <img name="ImageB1" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image1','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        
+        <div id="points">
+          <div name="purchasePoint1" class="catalogTitleBlackBold" align="right">
+          0 points</div>
+        </div>
+      </div>
+      <div id="scaTitle1" style="display:none">
+      </div>
+      <img id="ImageA1" src="Wii/AllCh/B_04_softbanner_a.gif" name="Image1" width="488" height="91" border="0">
+    </div>
+    	
+<script type="text/JavaScript">
+<!--
+	var giftTrans = '';
+	var titleId = '0001000148435345';
+	var transId = giftsArray[titleId];
+	
+	if ((giftTrans != null) && (giftTrans != "")) {
+		// list gifts only
+		document.getElementById("giftTitle1").style.display = '';
+	} else if (transId != null) {
+		// has pending gift(s). B-24 should be displayed instead of B-05 for the pending gift titles
+		document.getElementById("giftAnchor1").href = 'javascript:showGiftTrans('+transId+')';
+		document.getElementById("storedGiftTitle1").style.display = '';
+	} else {
+		// no pending gift
+		document.getElementById("regularTitle1").style.display = '';
+		var titleInfoVar = ec.getTitleInfo ('0001000148435345');
+		var latestVersion = parseInt('516');
+		if (isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+			document.getElementById('UPDATE1').style.display = ''; 
+		}
+		var titleLicense = getTitleLicense('0001000148435345');
+        //trace("SCATitleStatus"+getSCATitleStatus());
+		if (titleLicense == "Unlimited") {
+			// Already own this title
+			var len=document.getElementsByName('ImageB1').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+					document.getElementsByName('ImageB1')[j].onmouseover = 'MM_swapImage("'+ 'Image1' + '","","' + '/oss/oss/common/images/' + '/banner/B_04_softbannerP_b.gif",1); wiiFocusSound();'; 
+				}
+			}
+	
+			len=document.getElementsByName('ImageA1').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+				document.getElementsByName('ImageA1')[j].src = 'Wii/B_04_softbannerP_a.gif'; 
+				}
+			}
+	
+			len=document.getElementsByName('purchasePoint1').length;
+			if (!titleInfoVar.isOnDevice || isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint1')[j].innerHTML = 'Téléchargeable'; 
+					}
+				}
+			} else {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint1')[j].innerHTML = 'Téléchargement terminé'; 
+					}
+				}
+			}
+
+
+            
+            if ( "SCAGOLD" == getSCAUserStatus() || "SCASILVER" == getSCAUserStatus() ){ 
+                if ( isScaGiftable(titleId) ) {
+                    len=document.getElementsByName('purchasePoint1').length;
+                    for(j=0;j<len;j++) {
+                        document.getElementsByName('purchasePoint1')[j].innerHTML = 'Cadeau gratuit SCA'; 
+                    }
+                }
+            }
+
+            
+
+
+		}else{
+            
+                    var icr_title_status        = '' ;
+                    var sca_title_gold_status   = '' ; 
+                    var sca_title_silver_status = '' ;
+
+                    if ( "ACTIVATED" == getICRUserStatus() && "ICR" == icr_title_status ) {
+                        len=document.getElementsByName('purchasePoint1').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint1')[j].innerHTML = 'Un titre gratuit';
+                        }
+                    } else if ( "SCAGOLD" == getSCAUserStatus() && "SCAGOLD" == sca_title_gold_status )
+                    {
+                        len=document.getElementsByName('purchasePoint1').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint1')[j].innerHTML = 'Ambassadeur de connexion 20'; 
+                        }
+                    } else if ( "SCASILVER" == getSCAUserStatus() && "SCASILVER" == sca_title_silver_status )
+                    {
+                        len=document.getElementsByName('purchasePoint1').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint1')[j].innerHTML = 'Ambassadeur de connexion 10'; 
+                        }
+                    } 
+
+                    
+        }
+	}
+//-->
+</script>
+
+<!-- If trial internet channel, show B_02 with internet channel escape clause -->
+    <div id="panel02" style="position:absolute; left:0px; top:136px; width:488px; height:91px; z-index:1">
+      <div class="contentsBlack" id="Platform">
+          Chaines Wii</div>
+      <div class="contentsBlack" id="Publisher">
+          Nintendo</div>
+      <div style="overflow:hidden" nowrap="" id="TitleName2stline">
+          <span id="title2_2" class="catalogTitleBlack_01">The Legend of Zelda: Skyward Sword</span>
+        </div>
+      <div style="overflow:hidden" nowrap="" id="TitleName1stline">
+	  <span id="title1_2" class="catalogTitleBlack_01">Chaîne mise à jour des données</span>
+      </div>
+      
+      <div id="ImageforCatalogpage">
+        <img src="Wii/AllCh/FFFD0009.gif" width="96" height="72">
+        </div>
+      
+      <div id="UPDATE2" style="display:none">
+        <div id="NEW1"><img src="Wii/AllCh/new_update.png" width="150" height="23"></div>
+            <div class="headerBlueM" id="NEWtext1"><div align="center">Mis à jour!</div></div>
+          </div>
+      
+      <div id="giftTitle2" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showGiftTrans('')" target="_top" name="goTitleDetailsLink2">
+            <img name="ImageB2" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image2','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint2" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="storedGiftTitle2" style="display:none">     
+        <div id="spacer">
+          <a id="giftAnchor2" href="" name="goTitleDetailsLink2">
+            <img name="ImageB2" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image2','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint2" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="regularTitle2" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showPage('B_05.jsp?titleId=0001000148435245')" target="_top" name="goTitleDetailsLink2">
+            <img name="ImageB2" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image2','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        
+        <div id="points">
+          <div name="purchasePoint2" class="catalogTitleBlackBold" align="right">
+          0 points</div>
+        </div>
+      </div>
+      <div id="scaTitle2" style="display:none">
+      </div>
+      <img id="ImageA2" src="Wii/AllCh/B_04_softbanner_a.gif" name="Image2" width="488" height="91" border="0">
+    </div>
+    	
+<script type="text/JavaScript">
+<!--
+	var giftTrans = '';
+	var titleId = '0001000148435245';
+	var transId = giftsArray[titleId];
+	
+	if ((giftTrans != null) && (giftTrans != "")) {
+		// list gifts only
+		document.getElementById("giftTitle2").style.display = '';
+	} else if (transId != null) {
+		// has pending gift(s). B-24 should be displayed instead of B-05 for the pending gift titles
+		document.getElementById("giftAnchor2").href = 'javascript:showGiftTrans('+transId+')';
+		document.getElementById("storedGiftTitle2").style.display = '';
+	} else {
+		// no pending gift
+		document.getElementById("regularTitle2").style.display = '';
+		var titleInfoVar = ec.getTitleInfo ('0001000148435245');
+		var latestVersion = parseInt('1');
+		if (isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+			document.getElementById('UPDATE2').style.display = ''; 
+		}
+		var titleLicense = getTitleLicense('0001000148435245');
+        //trace("SCATitleStatus"+getSCATitleStatus());
+		if (titleLicense == "Unlimited") {
+			// Already own this title
+			var len=document.getElementsByName('ImageB2').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+					document.getElementsByName('ImageB2')[j].onmouseover = 'MM_swapImage("'+ 'Image2' + '","","' + '/oss/oss/common/images/' + '/banner/B_04_softbannerP_b.gif",1); wiiFocusSound();'; 
+				}
+			}
+	
+			len=document.getElementsByName('ImageA2').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+				document.getElementsByName('ImageA2')[j].src = 'Wii/B_04_softbannerP_a.gif'; 
+				}
+			}
+	
+			len=document.getElementsByName('purchasePoint2').length;
+			if (!titleInfoVar.isOnDevice || isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint2')[j].innerHTML = 'Téléchargeable'; 
+					}
+				}
+			} else {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint2')[j].innerHTML = 'Téléchargement terminé'; 
+					}
+				}
+			}
+
+
+            
+            if ( "SCAGOLD" == getSCAUserStatus() || "SCASILVER" == getSCAUserStatus() ){ 
+                if ( isScaGiftable(titleId) ) {
+                    len=document.getElementsByName('purchasePoint2').length;
+                    for(j=0;j<len;j++) {
+                        document.getElementsByName('purchasePoint2')[j].innerHTML = 'Cadeau gratuit SCA'; 
+                    }
+                }
+            }
+
+            
+
+
+		}else{
+            
+                    var icr_title_status        = '' ;
+                    var sca_title_gold_status   = '' ; 
+                    var sca_title_silver_status = '' ;
+
+                    if ( "ACTIVATED" == getICRUserStatus() && "ICR" == icr_title_status ) {
+                        len=document.getElementsByName('purchasePoint2').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint2')[j].innerHTML = 'Un titre gratuit';
+                        }
+                    } else if ( "SCAGOLD" == getSCAUserStatus() && "SCAGOLD" == sca_title_gold_status )
+                    {
+                        len=document.getElementsByName('purchasePoint2').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint2')[j].innerHTML = 'Ambassadeur de connexion 20'; 
+                        }
+                    } else if ( "SCASILVER" == getSCAUserStatus() && "SCASILVER" == sca_title_silver_status )
+                    {
+                        len=document.getElementsByName('purchasePoint2').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint2')[j].innerHTML = 'Ambassadeur de connexion 10'; 
+                        }
+                    } 
+
+                    
+        }
+	}
+//-->
+</script>
+
+<!-- If trial internet channel, show B_02 with internet channel escape clause -->
+    <div id="panel03" style="position:absolute; left:0px; top:248px; width:488px; height:91px; z-index:1">
+      <div class="contentsBlack" id="Platform">
+          Chaines Wii</div>
+      <div class="contentsBlack" id="Publisher">
+          Nintendo</div>
+      <div style="overflow:hidden" nowrap="" id="TitleName1stline">
+	  <span id="title1_3" class="catalogTitleBlack_01">Chaîne Photos 1.1</span>
+      </div>
+      
+      <div id="ImageforCatalogpage">
+        <img src="Wii/AllCh/FFFD000C.gif" width="96" height="72">
+        </div>
+      
+      <div id="UPDATE3" style="display:none">
+        <div id="NEW1"><img src="Wii/AllCh/new_update.png" width="150" height="23"></div>
+            <div class="headerBlueM" id="NEWtext1"><div align="center">Mis à jour!</div></div>
+          </div>
+      
+      <div id="giftTitle3" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showGiftTrans('')" target="_top" name="goTitleDetailsLink3">
+            <img name="ImageB3" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image3','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint3" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="storedGiftTitle3" style="display:none">     
+        <div id="spacer">
+          <a id="giftAnchor3" href="" name="goTitleDetailsLink3">
+            <img name="ImageB3" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image3','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint3" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="regularTitle3" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showPage('B_05.jsp?titleId=0001000048415A41')" target="_top" name="goTitleDetailsLink3">
+            <img name="ImageB3" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image3','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        
+        <div id="points">
+          <div name="purchasePoint3" class="catalogTitleBlackBold" align="right">
+          0 points</div>
+        </div>
+      </div>
+      <div id="scaTitle3" style="display:none">
+      </div>
+      <img id="ImageA3" src="Wii/AllCh/B_04_softbanner_a.gif" name="Image3" width="488" height="91" border="0">
+    </div>
+    	
+<script type="text/JavaScript">
+<!--
+	var giftTrans = '';
+	var titleId = '0001000048415A41';
+	var transId = giftsArray[titleId];
+	
+	if ((giftTrans != null) && (giftTrans != "")) {
+		// list gifts only
+		document.getElementById("giftTitle3").style.display = '';
+	} else if (transId != null) {
+		// has pending gift(s). B-24 should be displayed instead of B-05 for the pending gift titles
+		document.getElementById("giftAnchor3").href = 'javascript:showGiftTrans('+transId+')';
+		document.getElementById("storedGiftTitle3").style.display = '';
+	} else {
+		// no pending gift
+		document.getElementById("regularTitle3").style.display = '';
+		var titleInfoVar = ec.getTitleInfo ('0001000048415A41');
+		var latestVersion = parseInt('1');
+		if (isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+			document.getElementById('UPDATE3').style.display = ''; 
+		}
+		var titleLicense = getTitleLicense('0001000048415A41');
+        //trace("SCATitleStatus"+getSCATitleStatus());
+		if (titleLicense == "Unlimited") {
+			// Already own this title
+			var len=document.getElementsByName('ImageB3').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+					document.getElementsByName('ImageB3')[j].onmouseover = 'MM_swapImage("'+ 'Image3' + '","","' + '/oss/oss/common/images/' + '/banner/B_04_softbannerP_b.gif",1); wiiFocusSound();'; 
+				}
+			}
+	
+			len=document.getElementsByName('ImageA3').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+				document.getElementsByName('ImageA3')[j].src = 'Wii/B_04_softbannerP_a.gif'; 
+				}
+			}
+	
+			len=document.getElementsByName('purchasePoint3').length;
+			if (!titleInfoVar.isOnDevice || isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint3')[j].innerHTML = 'Téléchargeable'; 
+					}
+				}
+			} else {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint3')[j].innerHTML = 'Téléchargement terminé'; 
+					}
+				}
+			}
+
+
+            
+            if ( "SCAGOLD" == getSCAUserStatus() || "SCASILVER" == getSCAUserStatus() ){ 
+                if ( isScaGiftable(titleId) ) {
+                    len=document.getElementsByName('purchasePoint3').length;
+                    for(j=0;j<len;j++) {
+                        document.getElementsByName('purchasePoint3')[j].innerHTML = 'Cadeau gratuit SCA'; 
+                    }
+                }
+            }
+
+            
+
+
+		}else{
+            
+                    var icr_title_status        = '' ;
+                    var sca_title_gold_status   = '' ; 
+                    var sca_title_silver_status = '' ;
+
+                    if ( "ACTIVATED" == getICRUserStatus() && "ICR" == icr_title_status ) {
+                        len=document.getElementsByName('purchasePoint3').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint3')[j].innerHTML = 'Un titre gratuit';
+                        }
+                    } else if ( "SCAGOLD" == getSCAUserStatus() && "SCAGOLD" == sca_title_gold_status )
+                    {
+                        len=document.getElementsByName('purchasePoint3').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint3')[j].innerHTML = 'Ambassadeur de connexion 20'; 
+                        }
+                    } else if ( "SCASILVER" == getSCAUserStatus() && "SCASILVER" == sca_title_silver_status )
+                    {
+                        len=document.getElementsByName('purchasePoint3').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint3')[j].innerHTML = 'Ambassadeur de connexion 10'; 
+                        }
+                    } 
+
+                    
+        }
+	}
+//-->
+</script>
+
+<!-- If trial internet channel, show B_02 with internet channel escape clause -->
+    <div id="panel04" style="position:absolute; left:0px; top:360px; width:488px; height:91px; z-index:1">
+		<a href="Channel/InternetChannel.html">
+      <div class="contentsBlack" id="Platform">
+          Chaines Wii</div>
+      <div class="contentsBlack" id="Publisher">
+          Nintendo</div>
+      <div style="overflow:hidden" nowrap="" id="TitleName1stline">
+	  <span id="title1_4" class="catalogTitleBlack_01">Chaîne Internet</span>
+      </div>
+      
+      <div id="ImageforCatalogpage">
+        <img src="Wii/AllCh/FFFD0011.gif" width="96" height="72">
+        </div>
+      
+      <div id="UPDATE4" style="display:none">
+        <div id="NEW1"><img src="Wii/AllCh/new_update.png" width="150" height="23"></div>
+            <div class="headerBlueM" id="NEWtext1"><div align="center">Mis à jour!</div></div>
+          </div>
+      
+      <div id="giftTitle4" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showGiftTrans('')" target="_top" name="goTitleDetailsLink4">
+            <img name="ImageB4" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image4','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint4" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="storedGiftTitle4" style="display:none">     
+        <div id="spacer">
+          <a id="giftAnchor4" href="" name="goTitleDetailsLink4">
+            <img name="ImageB4" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image4','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        <div id="points">
+          <div name="purchasePoint4" class="catalogTitleBlackBold" align="right">
+              Cadeau</div>
+        </div>
+      </div>
+      <div id="regularTitle4" style="display:none">
+        <div id="spacer">
+          <a href="javascript:showPage('B_05.jsp?titleId=0001000148414445')" target="_top" name="goTitleDetailsLink4">
+            <img name="ImageB4" src="Wii/AllCh/spacer.gif" onmouseover="MM_swapImage('Image4','','Wii/B_04_softbanner_b.gif',1);wiiFocusSound();" onmouseout="MM_swapImgRestore()" onclick="wiiSelectSound();" width="488" height="91" border="0">
+          </a>
+        </div>
+        
+        <div id="points">
+          <div name="purchasePoint4" class="catalogTitleBlackBold" align="right">
+          0 points</div>
+        </div>
+      </div>
+      <div id="scaTitle4" style="display:none">
+      </div>
+      <img id="ImageA4" src="Wii/AllCh/B_04_softbanner_a.gif" name="Image4" width="488" height="91" border="0">
+    </div>
+    	
+<script type="text/JavaScript">
+<!--
+	var giftTrans = '';
+	var titleId = '0001000148414445';
+	var transId = giftsArray[titleId];
+	
+	if ((giftTrans != null) && (giftTrans != "")) {
+		// list gifts only
+		document.getElementById("giftTitle4").style.display = '';
+	} else if (transId != null) {
+		// has pending gift(s). B-24 should be displayed instead of B-05 for the pending gift titles
+		document.getElementById("giftAnchor4").href = 'javascript:showGiftTrans('+transId+')';
+		document.getElementById("storedGiftTitle4").style.display = '';
+	} else {
+		// no pending gift
+		document.getElementById("regularTitle4").style.display = '';
+		var titleInfoVar = ec.getTitleInfo ('0001000148414445');
+		var latestVersion = parseInt('1024');
+		if (isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+			document.getElementById('UPDATE4').style.display = ''; 
+		}
+		var titleLicense = getTitleLicense('0001000148414445');
+        //trace("SCATitleStatus"+getSCATitleStatus());
+		if (titleLicense == "Unlimited") {
+			// Already own this title
+			var len=document.getElementsByName('ImageB4').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+					document.getElementsByName('ImageB4')[j].onmouseover = 'MM_swapImage("'+ 'Image4' + '","","' + '/oss/oss/common/images/' + '/banner/B_04_softbannerP_b.gif",1); wiiFocusSound();'; 
+				}
+			}
+	
+			len=document.getElementsByName('ImageA4').length;
+			if (len >0) {
+				for(j=0;j<len;j++) {
+				document.getElementsByName('ImageA4')[j].src = 'Wii/B_04_softbannerP_a.gif'; 
+				}
+			}
+	
+			len=document.getElementsByName('purchasePoint4').length;
+			if (!titleInfoVar.isOnDevice || isTitleUpdateAvailable(titleInfoVar, latestVersion)) {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint4')[j].innerHTML = 'Téléchargeable'; 
+					}
+				}
+			} else {
+				if (len >0) {
+					for(j=0;j<len;j++) {
+						document.getElementsByName('purchasePoint4')[j].innerHTML = 'Téléchargement terminé'; 
+					}
+				}
+			}
+
+
+            
+            if ( "SCAGOLD" == getSCAUserStatus() || "SCASILVER" == getSCAUserStatus() ){ 
+                if ( isScaGiftable(titleId) ) {
+                    len=document.getElementsByName('purchasePoint4').length;
+                    for(j=0;j<len;j++) {
+                        document.getElementsByName('purchasePoint4')[j].innerHTML = 'Cadeau gratuit SCA'; 
+                    }
+                }
+            }
+
+            
+
+
+		}else{
+            
+                    var icr_title_status        = '' ;
+                    var sca_title_gold_status   = '' ; 
+                    var sca_title_silver_status = '' ;
+
+                    if ( "ACTIVATED" == getICRUserStatus() && "ICR" == icr_title_status ) {
+                        len=document.getElementsByName('purchasePoint4').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint4')[j].innerHTML = 'Un titre gratuit';
+                        }
+                    } else if ( "SCAGOLD" == getSCAUserStatus() && "SCAGOLD" == sca_title_gold_status )
+                    {
+                        len=document.getElementsByName('purchasePoint4').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint4')[j].innerHTML = 'Ambassadeur de connexion 20'; 
+                        }
+                    } else if ( "SCASILVER" == getSCAUserStatus() && "SCASILVER" == sca_title_silver_status )
+                    {
+                        len=document.getElementsByName('purchasePoint4').length;
+                        for(j=0;j<len;j++) {
+                            document.getElementsByName('purchasePoint4')[j].innerHTML = 'Ambassadeur de connexion 10'; 
+                        }
+                    } 
+
+                    
+        }
+	}
+//-->
+</script>
+
+</div>
+  
+  <div id="icrExpirePage" style="display:none">
+  <div id="textIcrExpire">
+      <div class="contentsBlackM" align="center">
+          <table height="100%">
+              <tbody><tr>
+                  <td valign="middle" align="left">
+                      Cette promotion est terminée. Vous ne pouvez plus télécharger un titre gratuitement.</td>
+              </tr>
+          </tbody></table>
+      </div>
+  </div>
+</div>
+
+
+
+
+</body></html>

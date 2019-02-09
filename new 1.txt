@@ -1,0 +1,2 @@
+/oss/oss/common/images//banner
+A remplacer par wii dans tout les fichiers !
