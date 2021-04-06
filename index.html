@@ -4,8 +4,15 @@
 <link rel="shortcut icon" href="Wii/favicon.ico"> 
 <link href="Wii/oss.css" rel="stylesheet" type="text/css">
 <link href="Wii/error.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="eula_files/ec.js"></script>
+<script language="JavaScript" src="eula_files/error.js"></script>
+<script language="JavaScript" src="eula_files/buttons.js"></script>
+<script language="JavaScript" src="eula_files/images.js"></script>
+<script language="JavaScript" src="eula_files/sound.js"></script>
+<script language="JavaScript" src="eula_files/shop.js"></script>
+<script language="JavaScript" src="eula_files/oss.js"></script>
 <script type="text/JavaScript">
-	
+snd.playBGM();
 <!--
 	var ecCheck = false;
 	var errorCheck = false;
@@ -17,15 +24,10 @@
 //-->
 </script>
 
-<script language="JavaScript" src="Wii/ec.js"></script>
-<script language="JavaScript" src="Wii/error.js"></script>
-<script language="JavaScript" src="Wii/buttons.js"></script>
-<script language="JavaScript" src="Wii/images.js"></script>
-<script language="JavaScript" src="Wii/sound.js"></script>
-<script language="JavaScript" src="Wii/shop.js"></script>
-<script language="JavaScript" src="Wii/oss.js"></script>
+
 <script type="text/JavaScript">
 <!--
+snd.playBGM();
 var testMode = 'false';
 
 function getMethod()
@@ -117,7 +119,7 @@ function initPageCommon()
     }
 
 	
-	MM_preloadImages('Wii//under_banner_a.gif');
+	MM_preloadImages = ('Wii/under_banner_a.gif');
 	var supportsCreditCard = 'false';
 	if (ecSupportsSession()) {
         	ec.setSessionValue("supportsCreditCard", supportsCreditCard);
@@ -1308,8 +1310,8 @@ function initRecommendedTitles()
 
 	  title.titleImage = null;
     
-      title.titleImage = '/oss/ccs/000100014E414C45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E414C45/FFFD0000');
+      title.titleImage = 'Wii/Test/000100014E414C45/FFFD0000';
+      MM_preloadImages = ('Wii/Test/000100014E414C45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1325,8 +1327,8 @@ function initRecommendedTitles()
 
 	  title.titleImage = null;
     
-      title.titleImage = '/oss/ccs/000100014E414245/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E414245/FFFD0000');
+      title.titleImage = 'Wii/Test/000100014E414245/FFFD0000';
+      MM_preloadImages = ('Wii/Test/000100014E414245/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1342,8 +1344,8 @@ function initRecommendedTitles()
 
 	  title.titleImage = null;
     
-      title.titleImage = '/oss/ccs/0001000157505345/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157505345/FFFD0001');
+      title.titleImage = 'Wii/Test/0001000157505345/FFFD0001';
+      MM_preloadImages = ('Wii/Test/0001000157505345/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1500';
@@ -1359,8 +1361,8 @@ function initRecommendedTitles()
 
 	  title.titleImage = null;
     
-      title.titleImage = '/oss/ccs/0001000146414745/FFFD0004';
-      MM_preloadImages('/oss/ccs/0001000146414745/FFFD0004');
+      title.titleImage = 'Wii/Test/0001000146414745/FFFD0004';
+      MM_preloadImages = ('Wii/Test/0001000146414745/FFFD0004');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1377,7 +1379,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146413945/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000146413945/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000146413945/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1394,7 +1396,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014D424D45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014D424D45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014D424D45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1411,7 +1413,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157545045/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157545045/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157545045/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1200';
@@ -1428,7 +1430,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014A435745/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014A435745/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014A435745/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1445,7 +1447,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157525545/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157525545/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157525545/FFFD0001');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1462,7 +1464,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014A414545/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014A414545/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014A414545/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1479,7 +1481,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146424345/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000146424345/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000146424345/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1496,7 +1498,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157464745/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157464745/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157464745/FFFD0001');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1513,7 +1515,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014E414445/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E414445/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014E414445/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1530,7 +1532,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157464345/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157464345/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157464345/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1500';
@@ -1547,7 +1549,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146435745/FFFD0004';
-      MM_preloadImages('/oss/ccs/0001000146435745/FFFD0004');
+      MM_preloadImages = ('/oss/ccs/0001000146435745/FFFD0004');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1564,7 +1566,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146424945/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000146424945/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000146424945/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1581,7 +1583,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014D414545/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014D414545/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014D414545/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1598,7 +1600,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014E415245/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E415245/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014E415245/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1615,7 +1617,7 @@ function initRecommendedTitles()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014A424B45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014A424B45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014A424B45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1640,7 +1642,7 @@ function inittitlelist1()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157505345/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157505345/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157505345/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1500';
@@ -1657,7 +1659,7 @@ function inittitlelist1()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157424D45/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000157424D45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000157424D45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1674,7 +1676,7 @@ function inittitlelist1()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014E414B45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E414B45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014E414B45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1691,7 +1693,7 @@ function inittitlelist1()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014E414E45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E414E45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014E414E45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1708,7 +1710,7 @@ function inittitlelist1()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158484145/FFFD0003';
-      MM_preloadImages('/oss/ccs/0001000158484145/FFFD0003');
+      MM_preloadImages = ('/oss/ccs/0001000158484145/FFFD0003');
     
       title.isNew = 'false';
       title.price = '0';
@@ -1732,7 +1734,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014E414245/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E414245/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014E414245/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1749,7 +1751,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146435745/FFFD0004';
-      MM_preloadImages('/oss/ccs/0001000146435745/FFFD0004');
+      MM_preloadImages = ('/oss/ccs/0001000146435745/FFFD0004');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1766,7 +1768,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146414D45/FFFD0004';
-      MM_preloadImages('/oss/ccs/0001000146414D45/FFFD0004');
+      MM_preloadImages = ('/oss/ccs/0001000146414D45/FFFD0004');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1783,7 +1785,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014D414845/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014D414845/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014D414845/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1800,7 +1802,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014A414D45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014A414D45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014A414D45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1817,7 +1819,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014645444E/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014645444E/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014645444E/FFFD0000');
     
       title.isNew = 'false';
       title.price = '600';
@@ -1834,7 +1836,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014D414245/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014D414245/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014D414245/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1851,7 +1853,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014A444945/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014A444945/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014A444945/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1868,7 +1870,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146414745/FFFD0004';
-      MM_preloadImages('/oss/ccs/0001000146414745/FFFD0004');
+      MM_preloadImages = ('/oss/ccs/0001000146414745/FFFD0004');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1885,7 +1887,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014E415545/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E415545/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014E415545/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1902,7 +1904,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000150414345/FFFD0004';
-      MM_preloadImages('/oss/ccs/0001000150414345/FFFD0004');
+      MM_preloadImages = ('/oss/ccs/0001000150414345/FFFD0004');
     
       title.isNew = 'false';
       title.price = '600';
@@ -1919,7 +1921,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014A434345/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014A434345/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014A434345/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1936,7 +1938,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014D423645/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014D423645/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014D423645/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -1953,7 +1955,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014C414D45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014C414D45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014C414D45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -1970,7 +1972,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014E414F45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014E414F45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014E414F45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -1987,7 +1989,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146415245/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000146415245/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000146415245/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2004,7 +2006,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/000100014A434B45/FFFD0000';
-      MM_preloadImages('/oss/ccs/000100014A434B45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/000100014A434B45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '800';
@@ -2021,7 +2023,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146464D45/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000146464D45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000146464D45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2038,7 +2040,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146425545/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000146425545/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000146425545/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2055,7 +2057,7 @@ function inittitlelist2()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000146435145/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000146435145/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000146435145/FFFD0000');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2079,7 +2081,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157505345/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157505345/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157505345/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1500';
@@ -2096,7 +2098,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157474F45/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157474F45/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157474F45/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1500';
@@ -2113,7 +2115,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157545045/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157545045/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157545045/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1200';
@@ -2130,7 +2132,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157444D45/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000157444D45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000157444D45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2147,7 +2149,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157424D45/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000157424D45/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000157424D45/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2164,7 +2166,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157464345/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157464345/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157464345/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1500';
@@ -2181,7 +2183,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157523945/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157523945/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157523945/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2198,7 +2200,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157534E45/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157534E45/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157534E45/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1500';
@@ -2215,7 +2217,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157455245/FFFD0002';
-      MM_preloadImages('/oss/ccs/0001000157455245/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000157455245/FFFD0002');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2232,7 +2234,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157464745/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157464745/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157464745/FFFD0001');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2249,7 +2251,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157423645/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157423645/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157423645/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2266,7 +2268,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/00010001574D3845/FFFD0001';
-      MM_preloadImages('/oss/ccs/00010001574D3845/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/00010001574D3845/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2283,7 +2285,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157444645/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157444645/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157444645/FFFD0001');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2300,7 +2302,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157324345/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157324345/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157324345/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2317,7 +2319,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157525845/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000157525845/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000157525845/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2334,7 +2336,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157464B45/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157464B45/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157464B45/FFFD0001');
     
       title.isNew = 'false';
       title.price = '500';
@@ -2351,7 +2353,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/00010001574A5745/FFFD0001';
-      MM_preloadImages('/oss/ccs/00010001574A5745/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/00010001574A5745/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2368,7 +2370,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157535745/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157535745/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157535745/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2385,7 +2387,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157424245/FFFD0001';
-      MM_preloadImages('/oss/ccs/0001000157424245/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000157424245/FFFD0001');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2402,7 +2404,7 @@ function inittitlelist3()
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000157475345/FFFD0000';
-      MM_preloadImages('/oss/ccs/0001000157475345/FFFD0000');
+      MM_preloadImages = ('/oss/ccs/0001000157475345/FFFD0000');
     
       title.isNew = 'false';
       title.price = '1000';
@@ -2422,7 +2424,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Pokémon Rumble';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158484145/FFFD0003');
+      MM_preloadImages = ('/oss/ccs/0001000158484145/FFFD0003');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158484145/FFFD0003';
@@ -2439,7 +2441,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'FAST - Racing League';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158494A45/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158494A45/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158494A45/FFFD0002';
@@ -2456,7 +2458,7 @@ function inittitlelist4()
 
       title.nameFirstLine = '2 Fast 4 Gnomz';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/00010001584A4945/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/00010001584A4945/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/00010001584A4945/FFFD0002';
@@ -2473,7 +2475,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Kyotokei';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158493245/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158493245/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158493245/FFFD0002';
@@ -2490,7 +2492,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Gnomz';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/00010001584A4745/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/00010001584A4745/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/00010001584A4745/FFFD0002';
@@ -2507,7 +2509,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'BIT.TRIP FATE';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158485945/FFFD0003');
+      MM_preloadImages = ('/oss/ccs/0001000158485945/FFFD0003');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158485945/FFFD0003';
@@ -2524,7 +2526,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Fast Draw Showdown';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158495445/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158495445/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158495445/FFFD0002';
@@ -2541,7 +2543,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Fish\'em All!';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158494245/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158494245/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158494245/FFFD0002';
@@ -2558,7 +2560,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Gods vs Humans';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158494345/FFFD0008');
+      MM_preloadImages = ('/oss/ccs/0001000158494345/FFFD0008');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158494345/FFFD0008';
@@ -2575,7 +2577,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Liight';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158493745/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000158493745/FFFD0001');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158493745/FFFD0001';
@@ -2592,7 +2594,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'World of Goo';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158484645/FFFD0003');
+      MM_preloadImages = ('/oss/ccs/0001000158484645/FFFD0003');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158484645/FFFD0003';
@@ -2609,7 +2611,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'And Yet It Moves';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158483545/FFFD0003');
+      MM_preloadImages = ('/oss/ccs/0001000158483545/FFFD0003');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158483545/FFFD0003';
@@ -2626,7 +2628,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Mix Superstar';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158495645/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158495645/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158495645/FFFD0002';
@@ -2643,7 +2645,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Lead the Meerkats';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158483845/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000158483845/FFFD0001');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158483845/FFFD0001';
@@ -2660,7 +2662,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Chronos Twins DX';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158485A45/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158485A45/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158485A45/FFFD0002';
@@ -2677,7 +2679,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'Urbanix';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158494745/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158494745/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158494745/FFFD0002';
@@ -2694,7 +2696,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'LIT';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158483745/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158483745/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158483745/FFFD0002';
@@ -2711,7 +2713,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'BIT.TRIP FLUX';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158495345/FFFD0002');
+      MM_preloadImages = ('/oss/ccs/0001000158495345/FFFD0002');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158495345/FFFD0002';
@@ -2728,7 +2730,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'BIT.TRIP CORE';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158485645/FFFD0001');
+      MM_preloadImages = ('/oss/ccs/0001000158485645/FFFD0001');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158485645/FFFD0001';
@@ -2745,7 +2747,7 @@ function inittitlelist4()
 
       title.nameFirstLine = 'lilt line';
       title.nameSecondLine = 'Demo';
-      MM_preloadImages('/oss/ccs/0001000158494145/FFFD0003');
+      MM_preloadImages = ('/oss/ccs/0001000158494145/FFFD0003');
 	  title.titleImage = null;
     
       title.titleImage = '/oss/ccs/0001000158494145/FFFD0003';
@@ -2890,7 +2892,7 @@ function showStopRightArrow()
   var imageElem = document.getElementById("posStopRightArrowID");
     if(exist_right_arrow_flag)
     {
-  imageElem.innerHTML="<img id='posStopRightArrowimageID' width='62' height='88' border='0' src='Wii//GifA_News_noAction.png' onMouseOver='pointonR(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonR()' onMouseUp='pointonR()' onClick='change_up_RecommendedTitles()' />";
+  imageElem.innerHTML="<img id='posStopRightArrowimageID' width='62' height='88' border='0' src='Wii/GifA_News_noAction.png' onMouseOver='pointonR(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonR()' onMouseUp='pointonR()' onClick='change_up_RecommendedTitles()' />";
     }
     else
     {
@@ -2902,7 +2904,7 @@ function showStopLeftArrow()
   var imageElem = document.getElementById("posStopLeftArrowID");
     if(exist_left_arrow_flag)
     {
-  imageElem.innerHTML="<img id='posStopLeftArrowimageID' width='62' height='88' border='0' src='Wii//GifA_News_noAction.png' onMouseOver='pointonL(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonL()' onMouseUp='pointonL()' onClick='change_down_RecommendedTitles()' />";
+  imageElem.innerHTML="<img id='posStopLeftArrowimageID' width='62' height='88' border='0' src='Wii/GifA_News_noAction.png' onMouseOver='pointonL(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonL()' onMouseUp='pointonL()' onClick='change_down_RecommendedTitles()' />";
     }
     else
     {
@@ -2914,7 +2916,7 @@ function hideStopRightArrow()
   var imageElem = document.getElementById("posStopRightArrowID");
     if(exist_right_arrow_flag)
     {
-  imageElem.innerHTML="<img id='posStopRightArrowimageID' width='62' height='88' border='0' src='Wii//GifA_News_noAction.png' onMouseOver='pointonR(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonR()' onMouseUp='pointonR()' onClick='change_up_RecommendedTitles()' />";
+  imageElem.innerHTML="<img id='posStopRightArrowimageID' width='62' height='88' border='0' src='Wii/GifA_News_noAction.png' onMouseOver='pointonR(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonR()' onMouseUp='pointonR()' onClick='change_up_RecommendedTitles()' />";
     }
     else
     {
@@ -2926,7 +2928,7 @@ function hideStopLeftArrow()
   var imageElem = document.getElementById("posStopLeftArrowID");
     if(exist_left_arrow_flag)
     {
-  imageElem.innerHTML="<img id='posStopLeftArrowimageID' width='62' height='88' border='0' src='Wii//GifA_News_noAction.png' onMouseOver='pointonL(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonL()' onMouseUp='pointonL()' onClick='change_down_RecommendedTitles()' />";
+  imageElem.innerHTML="<img id='posStopLeftArrowimageID' width='62' height='88' border='0' src='Wii/GifA_News_noAction.png' onMouseOver='pointonL(); play_SE_for_moving();' onMouseOut='pointout()' onMouseDown='pointonL()' onMouseUp='pointonL()' onClick='change_down_RecommendedTitles()' />";
     }
     else
     {
@@ -2973,7 +2975,7 @@ function focus_Title(position)
   titleElem = document.getElementById("softFocusImage0" + position);
   if(mutex_animation_arrow != 0 && titleElem != null)
   {
-      var var_src = "\""  + "Wii//GifA_Soft_Over.png" + "\"" ;
+      var var_src = "\""  + "Wii/GifA_Soft_Over.png" + "\"" ;
       titleElem.innerHTML = "<img src=" + var_src + " width=\"273\" height=\"74\" border=\"0\"" + " />";
   }
 }
@@ -3008,107 +3010,107 @@ function move_animation_arrow()
   var imageElemRight = document.getElementById("posRightArrowID");
   if(stop_animation_arrow_decide == "left stop")
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_S.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_S.png' />";
     }
   else if(stop_animation_arrow_decide == "right stop")
     {
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_S.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_S.png' />";
     }
   else if(flames_for_Arrow==0)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_00.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_00.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_00.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_00.png' />";
     }
   else if(flames_for_Arrow==13)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_01.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_01.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_01.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_01.png' />";
     }
   else if(flames_for_Arrow==20)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_02.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_02.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_02.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_02.png' />";
     }
   else if(flames_for_Arrow==25)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_03.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_03.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_03.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_03.png' />";
     }
   else if(flames_for_Arrow==30)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_04.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_04.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_04.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_04.png' />";
     }
   else if(flames_for_Arrow==44)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_03.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_03.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_03.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_03.png' />";
     }
   else if(flames_for_Arrow==59)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_02.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_02.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_02.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_02.png' />";
     }
   else if(flames_for_Arrow==64)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_01.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_01.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_01.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_01.png' />";
     }
   else if(flames_for_Arrow==71)
     {
-        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii//top_L_arrow_00.png' />";
-        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii//top_R_arrow_00.png' />";
+        imageElemLeft.innerHTML="<img id='posLeftArrowimageID' border='0' src='Wii/top_L_arrow_00.png' />";
+        imageElemRight.innerHTML="<img id='posRightArrowimageID' border='0' src='Wii/top_R_arrow_00.png' />";
     }
 
-    var arrow_tag_Left = document.getElementById("posLeftArrowID");
+    var arrow_tag_left = document.getElementById("posLeftArrowID");
     var arrow_tag_right = document.getElementById("posRightArrowID");
     if(flames_for_Arrow == 0){
-        arrow_tag_Left.style.left = 15;
+        arrow_tag_left.style.left = 15;
         arrow_tag_right.style.left = 537;
     } else if(flames_for_Arrow == 1){
-        arrow_tag_Left.style.left = 16;
+        arrow_tag_left.style.left = 16;
         arrow_tag_right.style.left = 536;
     } else if(flames_for_Arrow == 10){
-        arrow_tag_Left.style.left = 17;
+        arrow_tag_left.style.left = 17;
         arrow_tag_right.style.left = 535;
     } else if(flames_for_Arrow == 14){
-        arrow_tag_Left.style.left = 18;
+        arrow_tag_left.style.left = 18;
         arrow_tag_right.style.left = 534;
     } else if(flames_for_Arrow == 17){
-        arrow_tag_Left.style.left = 19;
+        arrow_tag_left.style.left = 19;
         arrow_tag_right.style.left = 533;
     } else if(flames_for_Arrow == 20){
-        arrow_tag_Left.style.left = 20;
+        arrow_tag_left.style.left = 20;
         arrow_tag_right.style.left = 532;
     } else if(flames_for_Arrow == 23){
-        arrow_tag_Left.style.left = 21;
+        arrow_tag_left.style.left = 21;
         arrow_tag_right.style.left = 531;
     } else if(flames_for_Arrow == 27){
-        arrow_tag_Left.style.left = 22;
+        arrow_tag_left.style.left = 22;
         arrow_tag_right.style.left = 530;
     } else if(flames_for_Arrow == 31){
-        arrow_tag_Left.style.left = 23;
+        arrow_tag_left.style.left = 23;
         arrow_tag_right.style.left = 529;
     } else if(flames_for_Arrow == 49){
-        arrow_tag_Left.style.left = 22;
+        arrow_tag_left.style.left = 22;
         arrow_tag_right.style.left = 530;
     } else if(flames_for_Arrow == 53){
-        arrow_tag_Left.style.left = 21;
+        arrow_tag_left.style.left = 21;
         arrow_tag_right.style.left = 531;
     } else if(flames_for_Arrow == 57){
-        arrow_tag_Left.style.left = 20;
+        arrow_tag_left.style.left = 20;
         arrow_tag_right.style.left = 532;
     } else if(flames_for_Arrow == 60){
-        arrow_tag_Left.style.left = 19;
+        arrow_tag_left.style.left = 19;
         arrow_tag_right.style.left = 533;
     } else if(flames_for_Arrow == 63){
-        arrow_tag_Left.style.left = 18;
+        arrow_tag_left.style.left = 18;
         arrow_tag_right.style.left = 534;
     } else if(flames_for_Arrow == 66){
-        arrow_tag_Left.style.left = 17;
+        arrow_tag_left.style.left = 17;
         arrow_tag_right.style.left = 535;
     } else if(flames_for_Arrow == 70){
-        arrow_tag_Left.style.left = 16;
+        arrow_tag_left.style.left = 16;
         arrow_tag_right.style.left = 536;
     }
 
@@ -3571,35 +3573,35 @@ function initPage()
         }
     }
 
-    MM_preloadImages('Wii//GifA_Soft_Press.png',
-            'Wii//GifA_Soft_Over.png',
-            'Wii//GifA_Soft_noAction.png',
-            'Wii//GifA_GoShop_Over.png',
-            'Wii//Ambassador_GoShop_Over.png',
-            'Wii//ambassador_in_welcome_a.png',
-            'Wii//ambassador_in_welcome_b.png',
-            'Wii//icr_in_welcome_a_E.png',
-            'Wii//icr_in_welcome_b_E.png',
-            'Wii//GifA_GoShop_noAction.png',
-            'Wii//GifA_SoftList_Press.png',
-            'Wii//GifA_SoftList_Over.png',
-            'Wii//GifA_SoftList_noAction.png',
-            'Wii//NEW_fr.gif',
-            'Wii//GifA_News_Press.png',
-            'Wii//GifA_News_Over.png',
-            'Wii//GifA_News_noAction.png',
-            'Wii//top_L_arrow_00.png',
-            'Wii//top_L_arrow_01.png',
-            'Wii//top_L_arrow_02.png',
-            'Wii//top_L_arrow_03.png',
-            'Wii//top_L_arrow_04.png',
-            'Wii//top_L_arrow_S.png',
-            'Wii//top_R_arrow_00.png',
-            'Wii//top_R_arrow_01.png',
-            'Wii//top_R_arrow_02.png',
-            'Wii//top_R_arrow_03.png',
-            'Wii//top_R_arrow_04.png',
-            'Wii//top_R_arrow_S.png');
+    MM_preloadImages = ('Wii/GifA_Soft_Press.png',
+            'Wii/GifA_Soft_Over.png',
+            'Wii/GifA_Soft_noAction.png',
+            'Wii/GifA_GoShop_Over.png',
+            'Wii/Ambassador_GoShop_Over.png',
+            'Wii/ambassador_in_welcome_a.png',
+            'Wii/ambassador_in_welcome_b.png',
+            'Wii/icr_in_welcome_a_E.png',
+            'Wii/icr_in_welcome_b_E.png',
+            'Wii/GifA_GoShop_noAction.png',
+            'Wii/GifA_SoftList_Press.png',
+            'Wii/GifA_SoftList_Over.png',
+            'Wii/GifA_SoftList_noAction.png',
+            'Wii/NEW_fr.gif',
+            'Wii/GifA_News_Press.png',
+            'Wii/GifA_News_Over.png',
+            'Wii/GifA_News_noAction.png',
+            'Wii/top_L_arrow_00.png',
+            'Wii/top_L_arrow_01.png',
+            'Wii/top_L_arrow_02.png',
+            'Wii/top_L_arrow_03.png',
+            'Wii/top_L_arrow_04.png',
+            'Wii/top_L_arrow_S.png',
+            'Wii/top_R_arrow_00.png',
+            'Wii/top_R_arrow_01.png',
+            'Wii/top_R_arrow_02.png',
+            'Wii/top_R_arrow_03.png',
+            'Wii/top_R_arrow_04.png',
+            'Wii/top_R_arrow_S.png');
 
     init_title(previousDisplayedListName);
 
@@ -3666,8 +3668,11 @@ function add_scroll_counter()
             setTimeout(add_scroll_counter, 160);
     }
 }
-
+}
 //-->
+</script>
+<script>
+titles1 = initRecommendedTitles();
 </script>
 <body onkeypress="kdown();" onload="initPage();" style="overflow: hidden;" vlink="black" link="black" alink="black">
 <div id="bg"><img src="Wii/Welcome_BG_E.png" onmouseover="move_fleeze_cursor();" width="608" height="456" border="0"></div>
@@ -3722,7 +3727,7 @@ function add_scroll_counter()
 </div>
 
 <div id="info01n" align="center">
-        <script language="JavaScript">if ('[NEW]Rappel : Fermeture de la Chaîne boutique Wii le 30 janvier 2019'.indexOf('[NEW]', 0) != -1) {document.write('<img src="Wii//NEW_fr.gif"> ');};</script><img src="Wii/NEW_fr.gif"> 
+        <script language="JavaScript">if ('[NEW]Rappel : Fermeture de la Chaîne boutique Wii le 30 janvier 2019'.indexOf('[NEW]', 0) != -1) {document.write('<img src="Wii/NEW_fr.gif"> ');};</script><img src="Wii/NEW_fr.gif"> 
       </div>
       <div id="info01">
         <div nowrap="" class="txt_info" align="left">
@@ -3730,7 +3735,7 @@ function add_scroll_counter()
         </div>
       </div>
       <div id="infoShadow01"><img src="Wii/GifA_News_noAction.png" name="info01s" border="0"></div>
-      <div id="infoSpacer01"><a href="Information/Info1.html"><img src="Wii/spacer.gif" onmousedown="MM_swapImage('info01s','','Wii//GifA_News_Press.png',1);" onmouseup="MM_swapImage('info01s','','Wii//GifA_News_Over.png',1)" onclick="snd.playSE(cSE_Decide);" onmouseover="snd.playSE( cSE_Forcus ); MM_swapImage('info01s','','Wii//GifA_News_Over.png',1);move_fleeze_cursor();" onmouseout="MM_swapImage('info01s','','Wii//GifA_News_noAction.png',1);" width="514" height="25" border="0"></a></div>
+      <div id="infoSpacer01"><a href="Information/Info1.html"><img src="Wii/spacer.gif" onmousedown="MM_swapImage('info01s','','Wii/GifA_News_Press.png',1);" onmouseup="MM_swapImage('info01s','','Wii/GifA_News_Over.png',1)" onclick="snd.playSE(cSE_Decide);" onmouseover="snd.playSE( cSE_Forcus ); MM_swapImage('info01s','','Wii/GifA_News_Over.png',1);move_fleeze_cursor();" onmouseout="MM_swapImage('info01s','','Wii/GifA_News_noAction.png',1);" width="514" height="25" border="0"></a></div>
     <div id="SofList01"><img src="Wii/GifA_SoftList_noAction.png" name="SofList"></div>
 <div id="txtSoftList" align="center">
     <span class="style1">Chaîne boutique Wii</span>
@@ -3738,7 +3743,7 @@ function add_scroll_counter()
 </div>
 <div id="SoftListSpacer">
     <a id="headerURL" href="javascript:showPage('B_04.jsp?p=1&amp;rec=true')">
-        <img src="Wii/spacer.gif" onmousedown="MM_swapImage('SofList','','Wii//GifA_SoftList_Press.png',1);focus_Header();" onmouseup="MM_swapImage('SofList','','Wii//GifA_SoftList_Over.png',1)focus_Header();" onmouseover="MM_swapImage('SofList','','Wii//GifA_SoftList_Over.png',1); snd.playSE( cSE_Forcus );move_fleeze_cursor();focus_Header();" onmouseout="MM_swapImage('SofList','','Wii//GifA_SoftList_noAction.png',1);" onclick="snd.playSE(cSE_Decide);" width="551" height="42" border="0">
+        <img src="Wii/spacer.gif" onmousedown="MM_swapImage('SofList','','Wii/GifA_SoftList_Press.png',1);focus_Header();" onmouseup="MM_swapImage('SofList','','Wii/GifA_SoftList_Over.png',1)focus_Header();" onmouseover="MM_swapImage('SofList','','Wii/GifA_SoftList_Over.png',1); snd.playSE( cSE_Forcus );move_fleeze_cursor();focus_Header();" onmouseout="MM_swapImage('SofList','','Wii/GifA_SoftList_noAction.png',1);" onclick="snd.playSE(cSE_Decide);" width="551" height="42" border="0">
     </a>
 </div>
 
@@ -3747,14 +3752,17 @@ function add_scroll_counter()
     <div valign="middle" class="style15" align="center">Informations:</div>
 </div>
 
-
+<script>
+showRecommendedTitles(titles1, 4);
+start_animation_arrow();
+</script>
 
 <div id="icrButton">
             
             </div>
             <div id="bannerSpacerIcr">
-                <a href="javascript:showPage('S_30.jsp')" onclick="snd.playSE(cSE_Decide);" onmouseover="snd.playSE( cSE_Forcus ); MM_swapImage('GoIcr','','Wii//icr_in_welcome_b_E.png',1);move_fleeze_cursor();" onmouseout="MM_swapImage('GoIcr','','Wii//icr_in_welcome_a_E.png',1);">
-                        <img src="Wii/spacer.gif" width="231" height="64" border="0">
+                <a href="javascript:showPage('S_30.jsp')" onclick="snd.playSE(cSE_Decide);" onmouseover="snd.playSE( cSE_Forcus ); MM_swapImage('GoIcr','','Wii/icr_in_welcome_b_E.png',1);move_fleeze_cursor();" onmouseout="MM_swapImage('GoIcr','','Wii/icr_in_welcome_a_E.png',1);">
+                        <img src="Wii/spacer.gif" width="231W" height="64" border="0">
                 </a>
             </div>
         </div>
@@ -3765,7 +3773,7 @@ function add_scroll_counter()
         <div class="style5" id="txtGoShopping" align="center">
             Accéder à la boutique Wii</div>
         <div id="bannerspacer">
-            <a href="WSCA.html" onclick="snd.playSE(cSE_Decide);" onmouseover="snd.playSE( cSE_Forcus ); MM_swapImage('GoShop','','Wii//GifA_GoShop_Over.png',1);move_fleeze_cursor();" onmouseout="MM_swapImage('GoShop','','Wii//GifA_GoShop_noAction.png',1);">
+            <a href="WSCA.html" onclick="snd.playSE(cSE_Decide);" onmouseover="snd.playSE( cSE_Forcus ); MM_swapImage('GoShop','','Wii/GifA_GoShop_Over.png',1);move_fleeze_cursor();" onmouseout="MM_swapImage('GoShop','','Wii/GifA_GoShop_noAction.png',1);">
                 <img src="Wii/spacer.gif" width="352" height="56" border="0">
             </a>
         </div>
